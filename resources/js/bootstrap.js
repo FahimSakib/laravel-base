@@ -10,7 +10,14 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+    require('moment');
+    require('../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
+    require('../../node_modules/masonry-layout/dist/masonry.pkgd.min.js');
+    require('sweetalert2');
+    require('select2');
+    require('../../node_modules/chart.js/dist/chart.min.js');
+    require('../../node_modules/dropify/dist/js/dropify.min.js');
+    require('../../node_modules/nestable2/jquery.nestable');
 } catch (e) {}
 
 /**
