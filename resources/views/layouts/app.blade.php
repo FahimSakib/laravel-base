@@ -4,6 +4,7 @@
 <!-- Mirrored from wieldy-html.g-axon.work/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 19 Aug 2020 08:12:55 GMT -->
 
 <head>
+    <base href="{{ asset('/') }}">
     <!-- Meta tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,18 +19,8 @@
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
     <!-- /site favicon -->
 
-    <!-- Font Icon Styles -->
-    <link rel="stylesheet" href="../node_modules/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="../vendors/gaxon-icon/style.css">
-    <!-- /font icon Styles -->
-
-    <!-- Perfect Scrollbar stylesheet -->
-    <link rel="stylesheet" href="../node_modules/perfect-scrollbar/css/perfect-scrollbar.css">
-    <!-- /perfect scrollbar stylesheet -->
-
     <!-- Load Styles -->
-
-    <link rel="stylesheet" href="assets/css/lite-style-1.min.css">
+    <link rel="stylesheet" href="css/app.css">
     <!-- /load styles -->
 
 </head>
@@ -62,7 +53,7 @@
         <!-- Site Main -->
         <main class="dt-main">
             <!-- Sidebar -->
-            <x-sidebar/>
+            <x-sidebar />
             <!-- /sidebar -->
 
             <!-- Site Content Wrapper -->
@@ -86,7 +77,7 @@
             <!-- /theme chooser -->
 
             <!-- Customizer Sidebar -->
-            <x-right-sidebar/>
+            <x-right-sidebar />
             <!-- /customizer sidebar -->
 
         </main>
@@ -94,20 +85,10 @@
     <!-- /root -->
 
     <!-- Optional JavaScript -->
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/moment/moment.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Perfect Scrollbar jQuery -->
-    <script src="../node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-    <!-- /perfect scrollbar jQuery -->
-
-    <!-- masonry script -->
-    <script src="../node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
-    <script src="../node_modules/sweetalert2/dist/sweetalert2.js"></script>
-
-    <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/custom/charts/dashboard-crypto.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/perfect-scrollbar.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/custom/charts/dashboard-crypto.js"></script>
 </body>
 
 <!-- Mirrored from wieldy-html.g-axon.work/default/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 19 Aug 2020 08:14:49 GMT -->

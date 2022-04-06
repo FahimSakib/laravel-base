@@ -1,8 +1,9 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+$fa-font-path: "../webfonts";
+@import '~flag-icon-css/css/flag-icons.min.css';
+@import './../asset/css/gaxon-icon/style.css';
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import './../asset/css/lite-style-1.min.css';
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+@import '~select2/dist/css/select2.min.css';
+@import '~dropify/dist/css/dropify.min.css';
+@import '~nestable2/jquery.nestable.css';
