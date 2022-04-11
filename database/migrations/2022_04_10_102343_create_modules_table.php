@@ -15,6 +15,16 @@ class CreateModulesTable extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('menu_id');
+            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->enum('type',['1','2'])->comment="1=divider,2=module";
+            $table->string('module_name')->nullable();
+            $table->string('divider_title')->nullable();
+            $table->string('icon_class')->nullable();
+            $table->string('url')->unique();
+            $table->integer('order')->nullable();
+            $table->unsignedInteger('parent_id')->nullable();
+            $table->enum('target',['_self','_blank'])->default('_self');
             $table->timestamps();
         });
     }
