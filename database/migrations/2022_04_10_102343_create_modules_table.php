@@ -21,7 +21,7 @@ class CreateModulesTable extends Migration
             $table->string('module_name')->nullable();
             $table->string('divider_title')->nullable();
             $table->string('icon_class')->nullable();
-            $table->string('url')->unique();
+            $table->string('url')->nullable();
             $table->integer('order')->nullable();
             $table->unsignedInteger('parent_id')->nullable();
             $table->enum('target',['_self','_blank'])->default('_self');
