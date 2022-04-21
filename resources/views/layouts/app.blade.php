@@ -22,6 +22,7 @@
 
     <!-- Load Styles -->
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/datatables.bundle.css">
     @stack('styles')
     <!-- /load styles -->
 
@@ -89,6 +90,7 @@
     <!-- Optional JavaScript -->
     <script src="js/app.js"></script>
     <script src="js/perfect-scrollbar.min.js"></script>
+    <script src="js/datatables.bundle.js"></script>
 
     <script src="js/script.js"></script>
     {{-- <script src="js/custom/charts/dashboard-crypto.js"></script> --}}
