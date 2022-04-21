@@ -9,11 +9,10 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
-
+    window.Swal = require('sweetalert2');
     require('moment');
     require('../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
     require('../../node_modules/masonry-layout/dist/masonry.pkgd.min.js');
-    require('sweetalert2');
     require('select2');
     require('../../node_modules/chart.js/dist/chart.min.js');
     require('../../node_modules/dropify/dist/js/dropify.min.js');

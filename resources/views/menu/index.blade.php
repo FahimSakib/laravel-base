@@ -35,10 +35,6 @@
 
                 <!-- Card Body -->
                 <div class="dt-card__body">
-
-                    <!-- Tables -->
-                    <div class="table-responsive">
-
                         <table id="dataTable" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -58,10 +54,6 @@
                             <tbody>
                             </tbody>
                         </table>
-
-                    </div>
-                    <!-- /tables -->
-
                 </div>
                 <!-- /card body -->
 
@@ -117,15 +109,16 @@
                     "className": "text-center"
                 }
             ],
-            "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'B>>" +
+            "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'<'float-right'B>>>" +
                 "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'<'float-right'p>>>",
             "buttons": [
                 {
                     'extend':'colvis','className':'btn btn-secondary btn-sm text-white','text':'Column'
                 },
                 {
                     "extend": 'print',
+                    'className':'btn btn-secondary btn-sm text-white',
                     "title": "Menu List",
                     "orientation": "landscape", //portrait
                     "pageSize": "A4", //A3,A5,A6,legal,letter
@@ -140,6 +133,7 @@
                 },
                 {
                     "extend": 'csv',
+                    'className':'btn btn-secondary btn-sm text-white',
                     "title": "Menu List",
                     "filename": "menu-list",
                     "exportOptions": {
@@ -150,6 +144,7 @@
                 },
                 {
                     "extend": 'excel',
+                    'className':'btn btn-secondary btn-sm text-white',
                     "title": "Menu List",
                     "filename": "menu-list",
                     "exportOptions": {
@@ -160,6 +155,7 @@
                 },
                 {
                     "extend": 'pdf',
+                    'className':'btn btn-secondary btn-sm text-white',
                     "title": "Menu List",
                     "filename": "menu-list",
                     "orientation": "landscape", //portrait

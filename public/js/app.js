@@ -65472,14 +65472,13 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+  window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 
   __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
   __webpack_require__(/*! ../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js */ "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js");
 
   __webpack_require__(/*! ../../node_modules/masonry-layout/dist/masonry.pkgd.min.js */ "./node_modules/masonry-layout/dist/masonry.pkgd.min.js");
-
-  __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 
   __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js/select2.js");
 
