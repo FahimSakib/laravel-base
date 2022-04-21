@@ -17,6 +17,7 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <div class="row">
+                        <input type="hidden" name="update_id" id="update_id" />
                         <x-form.textbox col="col-md-12" required="required" labelName="Menu Name" name="menu_name"
                             placeholder="Enter menu name" />
                         <x-form.selectbox col="col-md-12" required="required" labelName="Deletable" name="deletable"
