@@ -192,6 +192,79 @@
             table.ajax.reload();
         });
 
+        $(document).on('click', '#save-btn', function () {
+            let form = document.getElementById('store_or_update_form');
+            let formData = new FormData(form);
+            let url = "{{route('menu.store.or.update')}}";
+            let id = $('#update_id').val();
+            let method;
+            if (id) {
+                method = 'update';
+            } else {
+                method = 'add';
+            }
+            store_or_update_data(table, method, url, formData);
+        });
+
+        $(document).on('click', '.edit_data', function () {
+            let id = $(this).data('id');
+            $('#store_or_update_form .select').val('').trigger('change');
+            if (id) {
+                $.ajax({
+                    url: "{{route('menu.edit')}}",
+                    type: "POST",
+                    data: {
+                        id: id,
+                        _token: _token
+                    },
+                    dataType: "JSON",
+                    success: function (data) {
+                        $('#store_or_update_form #update_id').val(data.data.id);
+                        $('#store_or_update_form #menu_name').val(data.data.menu_name);
+                        $('#store_or_update_form #deletable').val(data.data.deletable).trigger('change');
+                        $('#store_or_update_modal').modal({
+                            keyboard: false,
+                            backdrop: 'static',
+                        });
+                        $('#store_or_update_modal .modal-title').html(
+                            '<i class="fas fa-edit"></i> <span>Edit ' + data.data.menu_name + '</span>');
+                        $('#store_or_update_modal #save-btn').text('update');
+                    },
+                    error: function (xhr, ajaxOption, thrownError) {
+                        console.log(thrownError + '\r\n' + xhr.statusText + '\r\n' + xhr.responseText);
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '.delete_data', function () {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let row = table.row($(this).parent('tr'));
+            let url = "{{ route('menu.delete') }}";
+            delete_data(id, url, table, row, name);
+        });
+
+        function multi_delete() {
+            let ids = [];
+            let rows;
+            $('.select_data:checked').each(function () {
+                ids.push($(this).val());
+                rows = table.rows($('.select_data:checked').parents('tr'));
+            });
+            if (ids.length == 0) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Please checked at least one row of table!',
+                    icon: 'warning',
+                });
+            } else {
+                let url = "{{route('menu.bulk.delete')}}";
+                bulk_delete(ids, url, table, rows);
+            }
+        }
+
     });
 
 </script>

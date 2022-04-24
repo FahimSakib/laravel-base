@@ -9,11 +9,12 @@
             <div class="modal-header">
                 <h3 class="modal-title" id="model-1"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true" class="text-dark">×</span>
                 </button>
             </div>
             <!-- /modal header -->
             <form id="store_or_update_form" method="post">
+                @csrf
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <div class="row">
@@ -33,7 +34,7 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" id="save-btn"></button>
+                    <button type="button" class="btn btn-primary btn-sm" id="save-btn"></button>
                 </div>
                 <!-- /modal footer -->
             </form>
