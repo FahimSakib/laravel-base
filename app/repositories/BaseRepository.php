@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 class BaseRepository{
 
     protected $model;
+    protected $column_order;
+
+    protected $orderValue;
+    protected $dirValue;
+    protected $startVlaue;
+    protected $lengthVlaue;
 
     public function __construct(Model $model)
     {
@@ -70,6 +76,25 @@ class BaseRepository{
     public function destroy(array $data) : bool
     {
         return $this->model->destroy($data);
+    }
+
+    //DataTable deafult value set method:
+
+    public function setOrderValue($orderValue)
+    {
+        $this->orderValue = $orderValue;
+    }
+    public function setDirValue($dirValue)
+    {
+        $this->dirValue = $dirValue;
+    }
+    public function setStartValue($startVlaue)
+    {
+        $this->startVlaue = $startVlaue;
+    }
+    public function setLengthValue($lengthVlaue)
+    {
+        $this->lengthVlaue = $lengthVlaue;
     }
 
 }
