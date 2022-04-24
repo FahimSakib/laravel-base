@@ -9,10 +9,6 @@ $fa-font-path: "../webfonts";
 @import '~nestable2/jquery.nestable.css';
 
 //Custom CSS
-.select2-container{
-    width: 100% !important;
-}
-
 .close{
     opacity: 100% !important;
     color: white !important;
@@ -31,9 +27,7 @@ $fa-font-path: "../webfonts";
 }
 
 element {
-
     display: flex;
-
 }
 .swal2-popup .swal2-title {
     font-weight: 400;
@@ -136,4 +130,56 @@ div.dt-button-collection.dropdown-menu{
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+
+.btn-light,.btn-light:hover{
+    color: #545454;
+    background-color: #fff;
+    border-color: #ced4da;
+}
+.dropdown-item{cursor: pointer !important;}
+.dropdown-item.active,.dropdown-item:active{
+    color: #fff !important;
+    background-color: #fa8c16 !important;
+}
+
+//Menu Builder
+.menu-builder .dd{
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    max-width: inherit;
+    list-style: none;
+    font-size: 13px;
+    line-height: 20px;
+}
+.menu-builder .dd .item_action{
+    z-index: 999999;
+    position: relative;
+    top: 9px;
+    right: 10px;
+}
+.menu-builder .dd .item_action .edit{
+    margin-right: 5px;
+}
+.menu-builder .dd-handle{
+    display: block;
+    height: 50px;
+    margin: 5px 0;
+    padding: 14px 25px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    border-radius: 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.pt-24{
+    padding-top: 24px !important;
+}
+.btn-secondary{
+    color: white !important;
 }
