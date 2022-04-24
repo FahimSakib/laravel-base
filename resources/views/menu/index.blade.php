@@ -208,7 +208,7 @@
 
         $(document).on('click', '.edit_data', function () {
             let id = $(this).data('id');
-            $('#store_or_update_form .select').val('').trigger('change');
+            $('#store_or_update_form .selectpicker').val('').trigger('change');
             if (id) {
                 $.ajax({
                     url: "{{route('menu.edit')}}",

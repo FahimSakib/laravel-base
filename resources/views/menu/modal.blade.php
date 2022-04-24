@@ -22,7 +22,7 @@
                         <x-form.textbox col="col-md-12" required="required" labelName="Menu Name" name="menu_name"
                             placeholder="Enter menu name" />
                         <x-form.selectbox col="col-md-12" required="required" labelName="Deletable" name="deletable"
-                            class="select">
+                            class="selectpicker">
                             @foreach (DELETABLE as $key => $item)
                             <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach

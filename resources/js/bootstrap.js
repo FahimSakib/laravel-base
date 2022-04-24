@@ -13,7 +13,7 @@ try {
     require('moment');
     require('../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
     require('../../node_modules/masonry-layout/dist/masonry.pkgd.min.js');
-    require('select2');
+    require('../../node_modules/bootstrap-select/dist/js/bootstrap-select.min.js');
     require('../../node_modules/chart.js/dist/chart.min.js');
     require('../../node_modules/dropify/dist/js/dropify.min.js');
     require('../../node_modules/nestable2/jquery.nestable');

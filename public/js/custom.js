@@ -1,5 +1,7 @@
 $('.dropify').dropify(); //Initialize dropify
-$('.select').select2(); //Initialize select2
+$('.selectpicker').selectpicker({
+    dropupAuto:false
+}); //Initialize selectpicker
 
 function showFormModal(modal_title, btn_text) {
     $('#store_or_update_form')[0].reset();
@@ -7,7 +9,7 @@ function showFormModal(modal_title, btn_text) {
     $('#store_or_update_form').find('.is-invalid').removeClass('is-invalid');
     $('#store_or_update_form').find('.error').remove();
     $('#store_or_update_form .dropify-clear').trigger('click');
-    $('#store_or_update_form .select').val('').trigger('change');
+    $('#store_or_update_form .selectpicker').val('').trigger('change');
     $('#store_or_update_modal').modal({
         keyboard: false,
         backdrop: 'static',
@@ -74,7 +76,9 @@ function store_or_update_data(table, method, url, formData) {
             $('#store_or_update_form').find('.error').remove();
             if (data.status == false) {
                 $.each(data.errors, function (key, value) {
-                    $('#store_or_update_form #' + key).addClass('is-invalid');
+                    $('#store_or_update_form input#' + key).addClass('is-invalid');
+                    $('#store_or_update_form textarea#' + key).addClass('is-invalid');
+                    $('#store_or_update_form select#' + key).parent().addClass('is-invalid');
                     $('#store_or_update_form #' + key).parent().append(
                         '<small class="error text-danger">' + value + '</small>');
                 });
