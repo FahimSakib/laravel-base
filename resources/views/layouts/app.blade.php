@@ -95,6 +95,9 @@
     <script src="js/script.js"></script>
     <script src="js/custom.js"></script>
     {{-- <script src="js/custom/charts/dashboard-crypto.js"></script> --}}
+    <script>
+        var _token = "{{ csrf_token() }}";
+    </script>
     @stack('scripts')
 </body>
 </html>

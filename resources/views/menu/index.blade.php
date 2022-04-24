@@ -118,6 +118,7 @@
                 },
                 {
                     "extend": 'print',
+                    'text':'Print',
                     'className':'btn btn-secondary btn-sm text-white',
                     "title": "Menu List",
                     "orientation": "landscape", //portrait
@@ -133,6 +134,7 @@
                 },
                 {
                     "extend": 'csv',
+                    'text':'CSV',
                     'className':'btn btn-secondary btn-sm text-white',
                     "title": "Menu List",
                     "filename": "menu-list",
@@ -144,6 +146,7 @@
                 },
                 {
                     "extend": 'excel',
+                    'text':'Excel',
                     'className':'btn btn-secondary btn-sm text-white',
                     "title": "Menu List",
                     "filename": "menu-list",
@@ -155,6 +158,7 @@
                 },
                 {
                     "extend": 'pdf',
+                    'text':'PDF',
                     'className':'btn btn-secondary btn-sm text-white',
                     "title": "Menu List",
                     "filename": "menu-list",
