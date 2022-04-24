@@ -13,7 +13,12 @@
 
     <!-- Grid -->
     <div class="row">
-
+        <div class="col-xl 12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                <li class="active breadcrumb-item">{{ $sub_title }}</</li>
+            </ol>
+        </div>
         <!-- Grid Item -->
         <div class="col-xl-12">
 
