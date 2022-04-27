@@ -26,7 +26,7 @@ class MenuRepository extends BaseRepository{
         $query = $this->model->toBase();
 
         //Search Data:
-        if (!empty($this->name)) {
+        if (!empty($this->menu_name)) {
             $query->where('menu_name', 'like', '%' . $this->menu_name . '%');
         }
         if (isset($this->orderValue) && isset($this->dirValue)) {

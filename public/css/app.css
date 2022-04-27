@@ -22522,3 +22522,7 @@ div.dt-button-collection.dropdown-menu {
   color: white !important;
 }
 
+.bootstrap-select {
+  width: 100% !important;
+}
+

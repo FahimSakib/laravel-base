@@ -9,7 +9,7 @@ function showFormModal(modal_title, btn_text) {
     $('#store_or_update_form').find('.is-invalid').removeClass('is-invalid');
     $('#store_or_update_form').find('.error').remove();
     $('#store_or_update_form .dropify-clear').trigger('click');
-    $('#store_or_update_form .selectpicker').val('').trigger('change');
+    $('#store_or_update_form .selectpicker').selectpicker('refresh');
     $('#store_or_update_modal').modal({
         keyboard: false,
         backdrop: 'static',
