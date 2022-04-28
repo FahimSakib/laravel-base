@@ -13,7 +13,7 @@ class Menu extends Model
      */
     protected $fillable = ['menu_name', 'deletable'];
 
-    public function menuItem()
+    public function menuItems()
     {
         return $this->hasMany(Module::class)->doesntHave('parent')->orderBy('order','desc');
     }

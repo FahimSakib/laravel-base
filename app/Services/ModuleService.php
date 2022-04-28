@@ -18,9 +18,10 @@ class ModuleService extends BaseService{
         $this->module = $module;
     }
 
-    public function index()
+    public function index(int $id)
     {
-        
+        $data['menu'] = $this->menu->withMenuItems($id);
+        return $data;
     }
 
 }

@@ -35,7 +35,7 @@ class MenuService extends BaseService{
             foreach ($list as $value) {
                 $no++;
                 $action = '';
-                $action .= ' <a class="dropdown-item" href="'.route('menu.builder',$value->id).'"><i class="fas fa-file-circle-plus  text-success"></i> Builder</a>';
+                $action .= ' <a class="dropdown-item" href="'.route('menu.builder',["id" => $value->id]).'"><i class="fas fa-file-circle-plus  text-success"></i> Builder</a>';
                 $action .= ' <a class="dropdown-item edit_data" data-id="' . $value->id . '"><i class="fas fa-edit text-primary"></i> Edit</a>';
                 // $action .= ' <a class="dropdown-item view_data"  data-id="' . $value->id . '"><i class="fas fa-eye text-warning"></i> View</a>';
                 if($value->deletable == 1){

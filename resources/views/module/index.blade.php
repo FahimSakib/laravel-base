@@ -37,7 +37,10 @@
 
                             <!-- Card Body -->
                             <div class="dt-card__body">
-
+                                <h5 class="card-item">Drag and drop the item below to re-arrange them</h5>
+                                <div class="dd">
+                                    <x-menu-builder :menuItems="$data['menu']->menuItems"/>
+                                </div>
                             </div>
                             <!-- /card body -->
 
@@ -55,6 +58,10 @@
 
 @push('scripts')
 <script>
-
+$(function(){
+    $('.dd').on('change',function(e){
+        //
+    });
+});
 </script>
 @endpush

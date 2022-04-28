@@ -12,10 +12,11 @@ class ModuleController extends BaseController
     {
         $this->service = $module;
     }
-    public function index()
+    public function index(int $id)
     {
         $this->setPageData('Menu Builder','Menu builder','fas fa-th-list');
-        return view('module.index');
+        $data = $this->service->index($id);
+        return view('module.index', compact('data'));
     }
 
 }
