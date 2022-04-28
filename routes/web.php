@@ -30,4 +30,6 @@ Route::group(['middleware' => ['auth']], function(){
     });
     //menu routes end
 
+    Route::get('menu/builder/{id}','ModuleController@index')->name('menu.builder');
+
 });
