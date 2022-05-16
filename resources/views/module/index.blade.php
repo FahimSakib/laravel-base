@@ -16,7 +16,7 @@
         <div class="col-xl 12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                <li class="active breadcrumb-item">{{ $sub_title }}</</li> </ol> </div> <!-- Grid Item -->
+                <li class="active breadcrumb-item">{{ $sub_title.' ('.$data['menu']->menu_name.')' }}</</li> </ol> </div> <!-- Grid Item -->
                     <div class="col-xl-12">
 
                         <!-- Entry Header -->
@@ -24,7 +24,7 @@
 
                             <!-- Entry Heading -->
                             <div class="dt-entry__heading">
-                                <h2 class="dt-entry__title"><i class="{{ $page_icon }}"></i> {{ $sub_title }}</h2>
+                                <h2 class="dt-entry__title"><i class="{{ $page_icon }}"></i> {{ $sub_title.' ('.$data['menu']->menu_name.')' }}</h2>
                             </div>
                             <!-- /entry heading -->
                             <a class="btn btn-primary btn-sm" href=""><i
@@ -36,7 +36,7 @@
                         <div class="dt-card">
 
                             <!-- Card Body -->
-                            <div class="dt-card__body">
+                            <div class="dt-card__body menu-builder">
                                 <h5 class="card-item">Drag and drop the item below to re-arrange them</h5>
                                 <div class="dd">
                                     <x-menu-builder :menuItems="$data['menu']->menuItems"/>
