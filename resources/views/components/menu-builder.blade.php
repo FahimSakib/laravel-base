@@ -5,15 +5,14 @@
             <button type="button" class="btn btn-danger btn-sm float-right" onclick="deleteItem('{{ $item->id }}')">
                 <i class="fas fa-trash"></i>
             </button>
-            <form action="" id="delete_form_{{ $item->id }}"
+            <form action="{{ route('menu.module.delete',['module'=>$item->id]) }}" id="delete_form_{{ $item->id }}"
                 method="POST" style="display: none;">
                 @csrf
                 @method('DELETE')
             </form>
 
-            <a href=""
-                class="btn btn-primary btn-sm float-right edit"><i class="fas fa-edit"></i>
-            </a>
+            <a href="{{ route('menu.module.edit',['menu'=>$item->menu_id,'module'=>$item->id]) }}"
+                class="btn btn-primary btn-sm float-right edit"><i class="fas fa-edit"></i></a>
         </div>
         <div class="dd-handle">
             @if ($item->type == 1)

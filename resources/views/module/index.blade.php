@@ -29,7 +29,12 @@
                                     {{ $sub_title.' ('.$data['menu']->menu_name.')' }}</h2>
                             </div>
                             <!-- /entry heading -->
-                            <a class="btn btn-primary btn-sm" href=""><i class="fas fa-plus-square"></i> Add New</a>
+                            <div>
+                                <a class="btn btn-danger btn-sm" href="{{ route('menu') }}"><i
+                                        class="fas fa-arrow-circle-left"></i> Back</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('menu.module.create', ['menu'=>$data['menu']->id]) }}"><i class="fas fa-plus-square"></i> Add New</a>
+                            </div>
+
                         </div>
                         <!-- /entry header -->
 
@@ -71,6 +76,30 @@
                 notification('success', 'Menu order updated successfully');
             });
         });
+    });
+
+    function deleteItem(id) {
+        Swal.fire({
+            title: 'Are you sure to delete?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                document.getElementById('delete_form_' + id).submit();
+            }
+        });
+    }
+    $(document).ready(function () {
+        @if(session('success'))
+        notification('success', "{{ session('success') }}");
+        @endif
+        @if(session('error'))
+        notification('error', "{{ session('error') }}");
+        @endif
     });
 
 </script>

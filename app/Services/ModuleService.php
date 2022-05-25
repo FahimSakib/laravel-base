@@ -24,4 +24,30 @@ class ModuleService extends BaseService{
         return $data;
     }
 
+    public function storeOrUpdateData(Request $request)
+    {
+        $collection   = collect($request->validated());
+        $menu_id      = $request->menu_id;
+        $created_at   = $updated_at = Carbon::now();
+        if($request->update_id){
+            $collection = $collection->merge(compact('updated_at'));
+        }else{
+            $collection = $collection->merge(compact('menu_id','created_at'));
+        }
+
+        return $this->module->updateOrCreate(['id'=>$request->update_id],$collection->all());
+    }
+
+    public function edit($menu,$module){
+        $data['menu']   = $this->menu->withMenuItems($menu);
+        $data['module'] = $this->module->findOrFail($module);
+        return $data;
+    }
+
+    public function delete($module)
+    {
+        return $this->module->delete($module);
+    }
+
+
 }
