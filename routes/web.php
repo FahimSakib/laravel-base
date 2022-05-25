@@ -27,9 +27,16 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('edit', 'MenuController@edit')->name('edit');
         Route::post('delete', 'MenuController@delete')->name('delete');
         Route::post('bulk-delete', 'MenuController@bulkDelete')->name('bulk.delete');
+        Route::post('order/{menu}','MenuController@orderItem')->name('order');
+        
+        //Module Routes
+        Route::get('builder/{id}','ModuleController@index')->name('builder');
+        Route::group(['prefix' => 'module', 'as'=>'module.'], function () {
+            Route::get('create/{menu}','ModuleController@create')->name('create');
+            Route::post('store-or-update','ModuleController@storeOrUpdate')->name('store.or.update');
+            Route::get('{menu}/edit/{module}','ModuleController@edit')->name('edit');
+            Route::delete('delete/{module}','ModuleController@destroy')->name('delete');
+        });
     });
-    //menu routes end
-
-    Route::get('menu/builder/{id}','ModuleController@index')->name('menu.builder');
 
 });

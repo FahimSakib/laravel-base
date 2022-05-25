@@ -85,4 +85,9 @@ class MenuController extends BaseController
             return $this->response_json('error',null,null,401);
         }
     }
+
+    public function orderItem(Request $request){
+        $menuItemOrder = json_decode($request->input('order'));
+        $this->service->orderMenu($menuItemOrder, null);
+    }
 }

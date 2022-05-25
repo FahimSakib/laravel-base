@@ -4,15 +4,18 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Services\BaseService;
 use App\Repositories\MenuRepository;
+use App\Repositories\ModuleRepository;
 use Carbon\Carbon;
 
 class MenuService extends BaseService{
 
     protected $menu;
+    protected $module;
 
-    public function __construct(MenuRepository $menu)
+    public function __construct(MenuRepository $menu, ModuleRepository $module)
     {
-        $this->menu = $menu;
+        $this->menu   = $menu;
+        $this->module = $module;
     }
 
     public function getDatatableData(Request $request)
@@ -95,6 +98,20 @@ class MenuService extends BaseService{
 
     public function bulkDelete(Request $request){
         return $this->menu->destroy($request->ids);
+    }
+
+    public function orderMenu(array $menuItems, $parent_id)
+    {
+        foreach ($menuItems as $index => $menuItem) {
+            $item               = $this->module->findOrFail($menuItem->id);
+            $item->order        = $index + 1;
+            $item->parent_id    = $parent_id;
+            $item->save();
+            if(isset($menuItem->children)){
+                $this->orderMenu($menuItem->children, $item->id);
+            }
+        }
+
     }
     
 }

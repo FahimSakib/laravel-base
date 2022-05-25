@@ -16,7 +16,8 @@
         <div class="col-xl 12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                <li class="active breadcrumb-item">{{ $sub_title.' ('.$data['menu']->menu_name.')' }}</</li> </ol> </div> <!-- Grid Item -->
+                <li class="active breadcrumb-item">{{ $sub_title.' ('.$data['menu']->menu_name.')' }}</</li> </ol>
+                        </div> <!-- Grid Item -->
                     <div class="col-xl-12">
 
                         <!-- Entry Header -->
@@ -24,11 +25,11 @@
 
                             <!-- Entry Heading -->
                             <div class="dt-entry__heading">
-                                <h2 class="dt-entry__title"><i class="{{ $page_icon }}"></i> {{ $sub_title.' ('.$data['menu']->menu_name.')' }}</h2>
+                                <h2 class="dt-entry__title"><i class="{{ $page_icon }}"></i>
+                                    {{ $sub_title.' ('.$data['menu']->menu_name.')' }}</h2>
                             </div>
                             <!-- /entry heading -->
-                            <a class="btn btn-primary btn-sm" href=""><i
-                                    class="fas fa-plus-square"></i> Add New</a>
+                            <a class="btn btn-primary btn-sm" href=""><i class="fas fa-plus-square"></i> Add New</a>
                         </div>
                         <!-- /entry header -->
 
@@ -39,7 +40,7 @@
                             <div class="dt-card__body menu-builder">
                                 <h5 class="card-item">Drag and drop the item below to re-arrange them</h5>
                                 <div class="dd">
-                                    <x-menu-builder :menuItems="$data['menu']->menuItems"/>
+                                    <x-menu-builder :menuItems="$data['menu']->menuItems" />
                                 </div>
                             </div>
                             <!-- /card body -->
@@ -54,14 +55,23 @@
         <!-- /grid -->
 
     </div>
-@endsection
+    @endsection
 
 @push('scripts')
 <script>
-$(function(){
-    $('.dd').on('change',function(e){
-        //
+    $(function () {
+        $('.dd').nestable({
+            maxDepth: 2
+        }); //initialized nestable with max depth 2
+        $('.dd').on('change', function (e) {
+            $.post('{{ route("menu.order",["menu"=>$data["menu"]->id]) }}', {
+                order: JSON.stringify($('.dd').nestable('serialize')),
+                _token: _token
+            }, function (data) {
+                notification('success', 'Menu order updated successfully');
+            });
+        });
     });
-});
+
 </script>
 @endpush
