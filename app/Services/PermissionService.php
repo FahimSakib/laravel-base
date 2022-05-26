@@ -70,7 +70,7 @@ class PermissionService extends BaseService{
                 $data[] = $row;
             }
             
-            return $this->databtableDraw($request->input('draw'), $this->menu->count_all(), $this->menu->count_filtered(), $data);
+            return $this->databtableDraw($request->input('draw'), $this->permission->count_all(), $this->permission->count_filtered(), $data);
         }
     }
 
@@ -85,19 +85,19 @@ class PermissionService extends BaseService{
             $collection = $collection->merge(compact('created_at'));
         }
 
-        return $this->menu->updateOrCreate(['id' => $request->update_id], $collection->all());
+        return $this->permission->updateOrCreate(['id' => $request->update_id], $collection->all());
     }
 
     public function edit(Request $request){
-        return $this->menu->find($request->id);
+        return $this->permission->find($request->id);
     }
 
     public function delete(Request $request){
-        return $this->menu->delete($request->id);
+        return $this->permission->delete($request->id);
     }
 
     public function bulkDelete(Request $request){
-        return $this->menu->destroy($request->ids);
+        return $this->permission->destroy($request->ids);
     }
     
 }
