@@ -32,7 +32,7 @@ class PermissionRepository extends BaseRepository{
 
         //Search Data:
         if (!empty($this->moduleID)) {
-            $query->where('moduleID', $this->moduleID);
+            $query->where('module_id', $this->moduleID);
         }
         if (!empty($this->name)) {
             $query->where('name', 'like', '%' . $this->name . '%');

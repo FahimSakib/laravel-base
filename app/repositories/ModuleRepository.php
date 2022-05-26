@@ -10,5 +10,13 @@ class ModuleRepository extends BaseRepository{
     {
         $this->model = $model;
     }
+
+    public function module_list(int $menu_id)
+    {
+        $modules = $this->model->orderBy('order','asc')->where(['type'=>2,'menu_id'=>$menu_id])
+        ->get()->nest()->setIndent('-- ')->listsFlattened('module_name');
+
+        return $modules;
+    }
     
 }

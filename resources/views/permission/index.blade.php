@@ -47,8 +47,12 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="menu_name">Module</label>
-                                            <select class="form-control selectpicker" name="module_id" id="module_id">
-
+                                            <select class="form-control selectpicker" name="module_id" id="module_id"  data-live-search="true" data-live-search-placeholder="Search" title="Choose one of the following">
+                                                @if (!empty($data['modules']))
+                                                    @foreach ($data['modules'] as $key => $item)
+                                                        <option value="{{ $key }}">{{ $item }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4 pt-24">
@@ -217,6 +221,7 @@
 
             $('#btn-reset').click(function () {
                 $('#form-filter')[0].reset();
+                $('#form-filter .selectpicker').selectpicker('refresh');
                 table.ajax.reload();
             });
 

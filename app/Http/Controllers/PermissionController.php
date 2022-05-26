@@ -15,8 +15,9 @@ class PermissionController extends BaseController
     }
     public function index()
     {
-        $this->setPageData('permission','permission','fas fa-th-list');
-        return view('permission.index');
+        $this->setPageData('Permission','Permission','fas fa-th-list');
+        $data = $this->service->index();
+        return view('permission.index',compact('data'));
     }
 
     public function getDatatableData(Request $request)
