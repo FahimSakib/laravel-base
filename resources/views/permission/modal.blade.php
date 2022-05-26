@@ -1,6 +1,6 @@
 <div class="modal fade" id="store_or_update_modal" tabindex="-1" role="dialog" aria-labelledby="model-1"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
 
         <!-- Modal Content -->
         <div class="modal-content">
@@ -18,15 +18,45 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" name="update_id" id="update_id" />
-                        <x-form.textbox col="col-md-12" required="required" labelName="Menu Name" name="menu_name"
-                            placeholder="Enter menu name" />
-                        <x-form.selectbox col="col-md-12" required="required" labelName="Deletable" name="deletable"
+                        <x-form.selectbox col="col-md-12" required="required" labelName="Module" name="module_id"
                             class="selectpicker">
-                            @foreach (DELETABLE as $key => $item)
+                            @if (!empty($data['modules']))
+                            @foreach ($data['modules'] as $key => $item)
                             <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
+                            @endif
                         </x-form.selectbox>
+                        <div class="col-md-12">
+                            <table class="table table-borderless" id="permission-table">
+                                <thead>
+                                    <tr>
+                                        <th width="45%">Permission Name</th>
+                                        <th width="45%">Permission Slug</th>
+                                        <th width="10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" name="permission[1][name]" id="permission_1_name"
+                                                onkeyup="url_generator(this.value,'permission_1_slug')"
+                                                class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="permission[1][slug]" id="permission_1_slug"
+                                                class="form-control">
+                                        </td>
+                                        <td>
+                                            <button type="button" id="add_permission" class="btn btn-primary btm-sm"
+                                                data-toggle="tooltip" data-placement="top"
+                                                data-original-title="Add More">
+                                                <i class="fas fa-plus-square"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <!-- /modal body -->

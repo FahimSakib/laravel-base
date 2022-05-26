@@ -27,8 +27,9 @@
                                 <h2 class="dt-entry__title"><i class="{{ $page_icon }}"></i> {{ $sub_title }}</h2>
                             </div>
                             <!-- /entry heading -->
-                            <button class="btn btn-primary btn-sm" onclick="showFormModal('Add New Permission','Save')"><i
-                                    class="fas fa-plus-square"></i> Add New</button>
+                            <button class="btn btn-primary btn-sm"
+                                onclick="showFormModal('Add New Permission','Save')"><i class="fas fa-plus-square"></i>
+                                Add New</button>
                         </div>
                         <!-- /entry header -->
 
@@ -47,11 +48,13 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="menu_name">Module</label>
-                                            <select class="form-control selectpicker" name="module_id" id="module_id"  data-live-search="true" data-live-search-placeholder="Search" title="Choose one of the following">
+                                            <select class="form-control selectpicker" name="module_id" id="module_id"
+                                                data-live-search="true" data-live-search-placeholder="Search"
+                                                title="Choose one of the following">
                                                 @if (!empty($data['modules']))
-                                                    @foreach ($data['modules'] as $key => $item)
-                                                        <option value="{{ $key }}">{{ $item }}</option>
-                                                    @endforeach
+                                                @foreach ($data['modules'] as $key => $item)
+                                                <option value="{{ $key }}">{{ $item }}</option>
+                                                @endforeach
                                                 @endif
                                             </select>
                                         </div>
@@ -130,9 +133,9 @@
                     "url": "{{route('menu.module.permission.datatable.data')}}",
                     "type": "POST",
                     "data": function (data) {
-                        data.name         = $("#form-filter #name").val();
-                        data.module_id    = $("#form-filter #module_id").val();
-                        data._token       = _token;
+                        data.name = $("#form-filter #name").val();
+                        data.module_id = $("#form-filter #module_id").val();
+                        data._token = _token;
                     }
                 },
                 "columnDefs": [{
@@ -256,7 +259,8 @@
                         success: function (data) {
                             $('#store_or_update_form #update_id').val(data.data.id);
                             $('#store_or_update_form #module_id').val(data.data.module_id);
-                            $('#store_or_update_form #module_id.selectpicker').selectpicker('refresh');
+                            $('#store_or_update_form #module_id.selectpicker').selectpicker(
+                                'refresh');
                             $('#store_or_update_modal').modal({
                                 keyboard: false,
                                 backdrop: 'static',
@@ -302,7 +306,44 @@
                 }
             }
 
+            var count = 1;
+
+            function dynamic_permission_field(row) {
+                html = ` <tr>
+                    <td>
+                        <input type="text" name="permission[` + row + `][name]" id="permission_` + row + `_name" 
+                        onkeyup="url_generator(this.value,'permission_` + row + `_slug')" class="form-control">
+                    </td>
+                    <td>
+                        <input type="text" name="permission[` + row + `][slug]" id="permission_` + row + `_slug" class="form-control">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btm-sm remove_permission" data-toggle="tooltip" 
+                        data-placement="top" data-original-title="Remove">
+                        <i class="fas fa-minus-square"></i>
+                        </button>
+                    </td>
+                </tr>`;
+                $('#permission-table tbody').append(html);
+            }
+            $(document).on('click', '#add_permission', function () {
+                count++;
+                dynamic_permission_field(count);
+            });
+            $(document).on('click', '.remove_permission', function () {
+                count--;
+                $(this).closest('tr').remove();
+            });
+
+
         });
+
+        function url_generator(input_value, output_id) {
+            var value = input_value.toLowerCase().trim();
+            var str = value.replace(/ +(?= )/g, '');
+            var name = str.split(' ').join('-');
+            $('#' + output_id).val(name);
+        }
 
     </script>
     @endpush
