@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\BaseController;
+use App\Http\Requests\PermissionRequest;
+use App\Services\PermissionService;
 
-class PermissionController extends Controller
+class PermissionController extends BaseController
 {
-    public function __construct(MenuService $menu)
+    public function __construct(PermissionService $permission)
     {
-        $this->service = $menu;
+        $this->service = $permission;
     }
     public function index()
     {
-        $this->setPageData('Menu','Menu','fas fa-th-list');
-        return view('menu.index');
+        $this->setPageData('permission','permission','fas fa-th-list');
+        return view('permission.index');
     }
 
     public function getDatatableData(Request $request)
@@ -27,7 +30,7 @@ class PermissionController extends Controller
         return response()->json($output);
     }
 
-    public function storeOrUpdateData(MenuRequest $request)
+    public function storeOrUpdateData(PermissionRequest $request)
     {
         if($request->ajax()){
             $Result = $this->service->storeOrUpdateData($request);

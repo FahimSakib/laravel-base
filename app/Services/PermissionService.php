@@ -3,18 +3,18 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Services\BaseService;
-use App\Repositories\MenuRepository;
 use App\Repositories\ModuleRepository;
+use App\Repositories\PermissionRepository;
 use Carbon\Carbon;
 
-class MenuService extends BaseService{
+class PermissionService extends BaseService{
 
-    protected $menu;
+    protected $permission;
     protected $module;
 
-    public function __construct(MenuRepository $menu, ModuleRepository $module)
+    public function __construct(PermissionRepository $permission, ModuleRepository $module)
     {
-        $this->menu   = $menu;
+        $this->permission   = $permission;
         $this->module = $module;
     }
 
@@ -22,28 +22,27 @@ class MenuService extends BaseService{
     {
         if ($request->ajax()) {
 
-            if (!empty($request->menu_name)) {
-                $this->menu->setMenuName($request->menu_name);
+            if (!empty($request->module_id)) {
+                $this->permission->setModuleID($request->module_id);
+            }
+            if (!empty($request->name)) {
+                $this->permission->setName($request->name);
             }
 
-            $this->menu->setOrderValue($request->input('order.0.column'));
-            $this->menu->setDirValue($request->input('order.0.dir'));
-            $this->menu->setLengthValue($request->input('length'));
-            $this->menu->setStartValue($request->input('start'));
+            $this->permission->setOrderValue($request->input('order.0.column'));
+            $this->permission->setDirValue($request->input('order.0.dir'));
+            $this->permission->setLengthValue($request->input('length'));
+            $this->permission->setStartValue($request->input('start'));
 
-            $list = $this->menu->getDatatableList();
+            $list = $this->permission->getDatatableList();
 
             $data = [];
             $no = $request->input('start');
             foreach ($list as $value) {
                 $no++;
                 $action = '';
-                $action .= ' <a class="dropdown-item" href="'.route('menu.builder',["id" => $value->id]).'"><i class="fas fa-file-circle-plus  text-success"></i> Builder</a>';
                 $action .= ' <a class="dropdown-item edit_data" data-id="' . $value->id . '"><i class="fas fa-edit text-primary"></i> Edit</a>';
-                // $action .= ' <a class="dropdown-item view_data"  data-id="' . $value->id . '"><i class="fas fa-eye text-warning"></i> View</a>';
-                if($value->deletable == 1){
                 $action .= ' <a class="dropdown-item delete_data"  data-id="' . $value->id . '" data-name="' . $value->menu_name . '"><i class="fas fa-trash text-danger"></i> Delete</a>';
-                }
                 $btngroup = '<div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bars-staggered text-white"></i>
@@ -64,8 +63,9 @@ class MenuService extends BaseService{
                     $row [] = '';
                 }
                 $row [] = $no;
-                $row [] = $value->menu_name;
-                $row [] = DELETABLE[$value->deletable];
+                $row [] = $value->module_name;
+                $row [] = $value->name;
+                $row [] = $value->slug;
                 $row [] = $btngroup;
                 $data[] = $row;
             }
@@ -98,20 +98,6 @@ class MenuService extends BaseService{
 
     public function bulkDelete(Request $request){
         return $this->menu->destroy($request->ids);
-    }
-
-    public function orderMenu(array $menuItems, $parent_id)
-    {
-        foreach ($menuItems as $index => $menuItem) {
-            $item               = $this->module->findOrFail($menuItem->id);
-            $item->order        = $index + 1;
-            $item->parent_id    = $parent_id;
-            $item->save();
-            if(isset($menuItem->children)){
-                $this->orderMenu($menuItem->children, $item->id);
-            }
-        }
-
     }
     
 }
