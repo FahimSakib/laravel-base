@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use TypiCMS\NestableTrait;
 
 class Module extends Model
 {
+    use NestableTrait;
     /**
      * The attributes that are mass assignable.
      *
