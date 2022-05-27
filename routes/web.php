@@ -40,8 +40,9 @@ Route::group(['middleware' => ['auth']], function(){
             Route::get('permission','PermissionController@index')->name('permission');
             Route::group(['prefix' => 'permission', 'as' => 'permission.'], function(){
                 Route::post('datatable-data', 'PermissionController@getDatatableData')->name('datatable.data');
-                Route::post('store-or-update', 'PermissionController@storeOrUpdateData')->name('store.or.update');
+                Route::post('store-or-update', 'PermissionController@store')->name('store');
                 Route::post('edit', 'PermissionController@edit')->name('edit');
+                Route::post('update', 'PermissionController@update')->name('update');
                 Route::post('delete', 'PermissionController@delete')->name('delete');
                 Route::post('bulk-delete', 'PermissionController@bulkDelete')->name('bulk.delete');
             });

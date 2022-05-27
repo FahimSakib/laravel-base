@@ -23,6 +23,11 @@ class BaseRepository{
         return $this->model->create($attributes);
     }
 
+    public function insert(array $attributes)
+    {
+        return $this->model->insert($attributes);
+    }
+
     public function update(array $attributes, int $id) : bool
     {
         return $this->model->find($id)->update($attributes);

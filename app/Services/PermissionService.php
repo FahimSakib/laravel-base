@@ -14,8 +14,8 @@ class PermissionService extends BaseService{
 
     public function __construct(PermissionRepository $permission, ModuleRepository $module)
     {
-        $this->permission   = $permission;
-        $this->module = $module;
+        $this->permission = $permission;
+        $this->module     = $module;
     }
 
     public function index()
@@ -76,22 +76,31 @@ class PermissionService extends BaseService{
         }
     }
 
-    public function storeOrUpdateData(Request $request){
-        $collection = collect($request->validated());
-
-        $created_at = $updated_at  = Carbon::now();
-
-        if($request->update_id){
-            $collection = $collection->merge(compact('updated_at'));
-        }else{
-            $collection = $collection->merge(compact('created_at'));
+    public function store(Request $request)
+    {
+        $permission_data = [];
+        foreach ($request->permission as $value) {
+            $permission_data[] = [
+                'module_id' => $request->module_id,
+                'name' => $value['name'],
+                'slug' => $value['slug'],
+                'created_at' => Carbon::now()
+            ];
         }
+        return $this->permission->insert($permission_data);
 
-        return $this->permission->updateOrCreate(['id' => $request->update_id], $collection->all());
     }
 
     public function edit(Request $request){
         return $this->permission->find($request->id);
+    }
+
+    public function update(Request $request)
+    {
+        $collection = collect($request->validated());
+        $updated_at = Carbon::now();
+        $collection = $collection->merge(compact('updated_at'));
+        return $this->permission->update($collection->all(),$request->update_id);
     }
 
     public function delete(Request $request){

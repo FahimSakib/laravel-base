@@ -105,6 +105,7 @@
 
     </div>
     @include('permission.modal')
+    @include('permission.edit-modal')
     @endsection
 
     @push('scripts')
@@ -122,7 +123,7 @@
                     [5, 10, 15, 25, 50, 100, 1000, 10000, -1],
                     [5, 10, 15, 25, 50, 100, 1000, 10000, "All"]
                 ],
-                "pageLength": 5, //number of data show per page
+                "pageLength": 25, //number of data show per page
                 "language": {
                     processing: `<i class="fas fa-spinner fa-spin fs-3x fa-fw text-primary"></i>`,
                     emptyTable: '<strong class="text-danger">No Data Found</strong>',
@@ -231,7 +232,7 @@
             $(document).on('click', '#save-btn', function () {
                 let form = document.getElementById('store_or_update_form');
                 let formData = new FormData(form);
-                let url = "{{route('menu.module.permission.store.or.update')}}";
+                let url = "{{route('menu.module.permission.store')}}";
                 let id = $('#update_id').val();
                 let method;
                 if (id) {
@@ -239,14 +240,58 @@
                 } else {
                     method = 'add';
                 }
-                store_or_update_data(table, method, url, formData);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    dataType: "JSON",
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    beforeSend: function () {
+                        $('#save-btn').addClass(
+                            'kt-spinner kt-spinner--md kt-spinner--light');
+                    },
+                    complete: function () {
+                        $('#save-btn').removeClass(
+                            'kt-spinner kt-spinner--md kt-spinner--light');
+                    },
+                    success: function (data) {
+                        $('#store_or_update_form').find('.is-invalid').removeClass(
+                            'is-invalid');
+                        $('#store_or_update_form').find('.error').remove();
+                        if (data.status == false) {
+                            $.each(data.errors, function (key, value) {
+                                var key = key.split('.').join('_');
+                                $('#store_or_update_form select#' + key).parent()
+                                    .addClass('is-invalid');
+                                $('#store_or_update_form #' + key).parent().append(
+                                    '<small class="error text-danger">' +
+                                    value + '</small>');
+                                $('#store_or_update_form table').find('#' + key)
+                                    .addClass('is-invalid');
+                            });
+                        } else {
+                            notification(data.status, data.message);
+                            if (data.status == 'success') {
+                                if (method == 'update') {
+                                    table.ajax.reload(null, false);
+                                } else {
+                                    table.ajax.reload();
+                                }
+                                $('#store_or_update_modal').modal('hide');
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOption, thrownError) {
+                        console.log(thrownError + '\r\n' + xhr.statusText + '\r\n' + xhr
+                            .responseText);
+                    }
+                });
             });
 
             $(document).on('click', '.edit_data', function () {
                 let id = $(this).data('id');
-                $('#store_or_update_form .selectpicker').val('').trigger('change');
-                $('#store_or_update_form').find('.is-invalid').removeClass('is-invalid');
-                $('#store_or_update_form').find('.error').remove();
                 if (id) {
                     $.ajax({
                         url: "{{route('menu.module.permission.edit')}}",
@@ -257,18 +302,17 @@
                         },
                         dataType: "JSON",
                         success: function (data) {
-                            $('#store_or_update_form #update_id').val(data.data.id);
-                            $('#store_or_update_form #module_id').val(data.data.module_id);
-                            $('#store_or_update_form #module_id.selectpicker').selectpicker(
-                                'refresh');
-                            $('#store_or_update_modal').modal({
+                            $('#update_form #update_id').val(data.data.id);
+                            $('#update_form #name').val(data.data.name);
+                            $('#update_form #slug').val(data.data.slug);
+                            $('#update_modal').modal({
                                 keyboard: false,
                                 backdrop: 'static',
                             });
-                            $('#store_or_update_modal .modal-title').html(
+                            $('#update_modal .modal-title').html(
                                 '<i class="fas fa-edit"></i> <span>Edit ' + data.data
-                                .menu_name + '</span>');
-                            $('#store_or_update_modal #save-btn').text('Update');
+                                .name + '</span>');
+                            $('#update_modal #update-btn').text('Update');
                         },
                         error: function (xhr, ajaxOption, thrownError) {
                             console.log(thrownError + '\r\n' + xhr.statusText + '\r\n' + xhr
@@ -276,6 +320,54 @@
                         }
                     });
                 }
+            });
+
+            $(document).on('click', '#update-btn', function () {
+                let form = document.getElementById('update_form');
+                let formData = new FormData(form);
+                let url = "{{route('menu.module.permission.update')}}";
+                let id = $('#update_id').val();
+                let method = 'update';
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    dataType: "JSON",
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    beforeSend: function () {
+                        $('#update-btn').addClass(
+                            'kt-spinner kt-spinner--md kt-spinner--light');
+                    },
+                    complete: function () {
+                        $('#update-btn').removeClass(
+                            'kt-spinner kt-spinner--md kt-spinner--light');
+                    },
+                    success: function (data) {
+                        $('#update_form').find('.is-invalid').removeClass('is-invalid');
+                        $('#update_form').find('.error').remove();
+                        if (data.status == false) {
+                            $.each(data.errors, function (key, value) {
+                                $('#update_form select#' + key).parent().addClass(
+                                    'is-invalid');
+                                $('#update_form #' + key).parent().append(
+                                    '<small class="error text-danger">' +
+                                    value + '</small>');
+                            });
+                        } else {
+                            notification(data.status, data.message);
+                            if (data.status == 'success') {
+                                table.ajax.reload(null, false);
+                                $('#update_modal').modal('hide');
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOption, thrownError) {
+                        console.log(thrownError + '\r\n' + xhr.statusText + '\r\n' + xhr
+                            .responseText);
+                    }
+                });
             });
 
             $(document).on('click', '.delete_data', function () {

@@ -28,7 +28,7 @@ class PermissionRepository extends BaseRepository{
     {
         $this->column_order = [null,'id','module_id','name','slug',null];
 
-        $query = $this->model->with('module_id,module_name');
+        $query = $this->model->with('module:id,module_name');
 
         //Search Data:
         if (!empty($this->moduleID)) {
