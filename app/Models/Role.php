@@ -12,4 +12,14 @@ class Role extends Model
      * @var array
      */
     protected $fillable = ['role_name','deletable'];
+
+    public function module_role()
+    {
+        return $this->belongsToMany(Module::class)->withTimestamps();
+    }
+
+    public function permission_role()
+    {
+        return $this->belongsToMany(Permission::class)->withTimestamps();
+    }
 }
