@@ -55,7 +55,7 @@
                                                         value="{{ $menu->id }}"
                                                         @if(collect($permission_data['role_module'])->contains($menu->id))
                                                     {{ 'checked' }} @endif>
-                                                    {{ $menu->type == 1 ? $menu->divider_title : $menu->module_name }}
+                                                    {!! $menu->type == 1 ? $menu->divider_title.' <small>(Divider)</small>' : $menu->module_name !!}
                                                     @if (!$menu->permission->isEmpty())
                                                     <ul>
                                                         @foreach ($menu->permission as $permission)
@@ -76,7 +76,7 @@
                                                         value="{{ $menu->id }}"
                                                         @if(collect($permission_data['role_module'])->contains($menu->id))
                                                     {{ 'checked' }} @endif>
-                                                    {{ $menu->type == 1 ? $menu->divider_title : $menu->module_name }}
+                                                    {!! $menu->type == 1 ? $menu->divider_title.' <small>(Divider)</small>' : $menu->module_name !!}
                                                     <ul>
                                                         @foreach ($menu->submenu as $submenu)
                                                         <li>
