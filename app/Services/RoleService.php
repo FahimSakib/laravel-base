@@ -1,11 +1,12 @@
 <?php
 namespace App\Services;
 
-use App\Repositories\ModuleRepository;
+use App\Models\ModuleRole;
 use Illuminate\Http\Request;
 use App\Services\BaseService;
+use App\Models\PermissionRole;
 use App\Repositories\RoleRepository;
-use Carbon\Carbon;
+use App\Repositories\ModuleRepository;
 
 class RoleService extends BaseService{
 
@@ -123,7 +124,7 @@ class RoleService extends BaseService{
         if(!$role->users->isEmpty()){
             $response = 2;
         }else{
-            $delete_module_role = $role->module_role()->detach();
+            $delete_module_role     = $role->module_role()->detach();
             $delete_permission_role = $role->permission_role()->detach();
             if($delete_module_role && $delete_permission_role){
                 $role->delete();
@@ -136,8 +137,36 @@ class RoleService extends BaseService{
         return $response;
     }
 
-    public function bulkDelete(Request $request){
-        return $this->role->destroy($request->ids);
+    public function bulkDelete(Request $request)
+    {
+        if(!empty($request->ids)){
+            $delete_list   = [];
+            $undelete_list = [];
+            foreach ($request->ids as $id) {
+                $role = $this->role->find($id);
+                if(!$role->users->isEmpty()){
+                    array_push($undelete_list,$role->role_name);
+                }else{
+                    array_push($delete_list,$id);
+                }
+            }
+
+            $message = !empty($undelete_list) ? 'These roles('.implode(',',$undelete_list).') can\'t delete because they are related with many users' : '';   
+
+            if(!empty($delete_list)){
+                $delete_module_role     = ModuleRole::whereIn('role_id',$delete_list)->delete();
+                $delete_permission_role = PermissionRole::whereIn('role_id',$delete_list)->delete();
+                if($delete_module_role && $delete_permission_role){
+                    $this->role->destroy($delete_list);
+                    $response = ['status' => 1,'message'=> $message];
+                }else{
+                    $response = ['status' => 2,'message'=> $message];
+                }
+            }else{
+                $response = ['status' => 3,'message'=> $message];
+            }
+            return $response;
+        }
     }
 
     public function PermissionModuleList()

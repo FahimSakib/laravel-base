@@ -88,11 +88,13 @@ class RoleController extends BaseController
     public function bulkDelete(Request $request)
     {
         if($request->ajax()){
-            $Result = $this->service->bulkDelete($request);
-            if($Result){
-                return $this->response_json('success','Data has been deleted successfully',null,200);
+            $result = $this->service->bulkDelete($request);
+            if($result['status'] == 1){
+                return $this->response_json($status='success',$message= !empty($result['message']) ? $result['message'] : 'Data Has Been Deleted Successfully',$data=null,$response_code=200);
+            }elseif($result['status'] == 2){
+                return $this->response_json($status='error',$message= !empty($result['message']) ? $result['message'] : 'Selected Data Cannot Delete',$data=null,$response_code=204);
             }else{
-                return $this->response_json('error','Data cannot be deleted',null,204);
+                return $this->response_json($status='error',$message= !empty($result['message']) ? $result['message'] : 'Selected Data Cannot Delete',$data=null,$response_code=204);
             }
         }else{
             return $this->response_json('error',null,null,401);
