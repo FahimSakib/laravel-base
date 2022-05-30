@@ -22,9 +22,9 @@ class RoleRepository extends BaseRepository{
 
     private function get_datatable_query()
     {
-        $this->column_order = [null,'id','role_name',null,null,null];
+        $this->column_order = [null,'id','role_name','deletable',null];
 
-        $query = $this->model;
+        $query = $this->model::toBase();
 
         //Search Data:
         if (!empty($this->role_name)) {
