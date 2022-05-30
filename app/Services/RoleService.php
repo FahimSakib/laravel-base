@@ -86,8 +86,34 @@ class RoleService extends BaseService{
         return false;
     }
 
-    public function edit(Request $request){
-        return $this->role->find($request->id);
+    public function edit(int $id)
+    {
+        $role = $this->role->findDataWithModulePermission($id);
+        $role_module = [];
+
+        if(!$role->module_role->isEmpty())
+        {
+            foreach ($role->module_role as $value) {
+                array_push($role_module,$value->id);
+            }
+        }
+
+        $role_permission = [];
+
+        if(!$role->permission_role->isEmpty())
+        {
+            foreach ($role->permission_role as $value) {
+                array_push($role_permission,$value->id);
+            }
+        }
+
+        $data = [
+            'role'            => $role,
+            'role_module'     => $role_module,
+            'role_permission' => $role_permission,
+        ];
+
+        return $data;
     }
 
     public function delete(Request $request){

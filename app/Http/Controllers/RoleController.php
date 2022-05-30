@@ -53,18 +53,12 @@ class RoleController extends BaseController
         }
     }
 
-    public function edit(Request $request)
+    public function edit(int $id)
     {
-        if($request->ajax()){
-            $data = $this->service->edit($request);
-            if($data->count()){
-                return $this->response_json($status='success',$message=null,$data=$data,$response_code=201);
-            }else{
-                return $this->response_json($status='error',$message='No Data Found',$data=null,$response_code=204);
-            }
-        }else{
-           return $this->response_json($status='error',$message=null,$data=null,$response_code=401);
-        }
+        $this->setPageData('Edit Role','Edit Role','fas fa-th-list');
+        $data = $this->service->PermissionModuleList();
+        $permission_data = $this->service->edit($id);
+        return view('role.edit',compact('data','permission_data'));
     }
 
     public function delete(Request $request)

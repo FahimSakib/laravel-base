@@ -59,4 +59,9 @@ class RoleRepository extends BaseRepository{
         return $this->model->toBase()->get()->count();
     }
 
+    public function findDataWithModulePermission(int $id)
+    {
+        return $this->model->with('module_role','permission_role')->find($id);
+    }
+
 }
