@@ -21,7 +21,7 @@
             <span>{{ $item->module_name }}</span> <small class="url">{{ $item->url }}</small>
             @endif
         </div>
-        @if ($item->children != null)
+        @if (!$item->children->isEmpty())
         <x-menu-builder :menuItems="$item->children" />
         @endif
     </li>

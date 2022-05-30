@@ -23,7 +23,7 @@ class Module extends Model
         return $this->belongsTo(Module::class,'parent_id','id');
     }
 
-    public function childern(){
+    public function children(){
         return $this->hasMany(Module::class,'parent_id','id')->orderBy('order','desc');
     }
 
