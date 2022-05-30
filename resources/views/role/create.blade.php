@@ -37,7 +37,65 @@
 
                             <!-- Card Body -->
                             <div class="dt-card__body">
-
+                                <form id="saveDataForm" method="post">
+                                    @csrf
+                                    <div class="row">
+                                        <x-form.textbox labelName="Role Name" name="role_name" required="required"
+                                            col="col-md-12" placeholder="Enter role name" />
+                                        <div class="col-md-12">
+                                            <ul id="permission" class="text-left">
+                                                @if (!$data->isEMpty())
+                                                @foreach ($data as $menu)
+                                                @if ($menu->submenu->isEmpty())
+                                                <li>
+                                                    <input type="checkbox" name="module[]" class="module"
+                                                        value="{{ $menu->id }}">
+                                                    {{ $menu->type == 1 ? $menu->divider_title : $menu->module_name }}
+                                                    @if (!$menu->permission->isEmpty())
+                                                    <ul>
+                                                        @foreach ($menu->permission as $permission)
+                                                        <li><input type="checkbox" name="permission[]"
+                                                                value="{{ $permission->id }}" />{{ $permission->name }}
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                    @endif
+                                                </li>
+                                                @else
+                                                <li>
+                                                    <input type="checkbox" name="module[]" class="module"
+                                                        value="{{ $menu->id }}">
+                                                    {{ $menu->type == 1 ? $menu->divider_title : $menu->module_name }}
+                                                    <ul>
+                                                        @foreach ($menu->submenu as $submenu)
+                                                        <li>
+                                                            <input type="checkbox" name="module[]" class="module"
+                                                                value="{{ $submenu->id }}"> {{ $submenu->module_name }}
+                                                            @if (!$submenu->permission->isEmpty())
+                                                            <ul>
+                                                                @foreach ($submenu->permission as $permission)
+                                                                <li><input type="checkbox" name="permission[]"
+                                                                        value="{{ $permission->id }}" />{{ $permission->name }}
+                                                                </li>
+                                                                @endforeach
+                                                            </ul>
+                                                            @endif
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                                @endif
+                                                @endforeach
+                                                @endif
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-12 pt-4">
+                                            <button type="reset" class="btn btn-danger btn-sm">Reset</button>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                id="save-btn">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <!-- /card body -->
 
