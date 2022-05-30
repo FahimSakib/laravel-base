@@ -26,4 +26,14 @@ class Module extends Model
     public function childern(){
         return $this->hasMany(Module::class,'parent_id','id')->orderBy('order','desc');
     }
+
+    public function submenu()
+    {
+        return $this->hasMany(Module::class,'parent_id','id')->orderBy('order','asc')->with('permission:id,module_id,name');
+    }
+
+    public function Permission()
+    {
+        return $this->hasMany(Permission::class);
+    }
 }

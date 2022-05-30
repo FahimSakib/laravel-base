@@ -3,8 +3,109 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\RoleService;
+use App\Http\Requests\RoleRequest;
+use App\Http\Controllers\BaseController;
 
-class RoleController extends Controller
+class RoleController extends BaseController
 {
-    //
+    public function __construct(RoleService $role)
+    {
+        $this->service = $role;
+    }
+
+    public function index()
+    {
+        $this->setPageData('Role','Role','fas fa-th-list');
+        return view('role.index');
+    }
+
+    public function getDatatableData(Request $request)
+    {
+        if($request->ajax()){
+            $output = $this->service->getDatatableData($request);
+        }else{
+            $output = ['status' => 'error', 'message' => 'Unauthorized action blocked!'];
+        }
+
+        return response()->json($output);
+    }
+
+    public function create()
+    {
+        $this->setPageData('Create Role','Create Role','fas fa-th-list');
+        $data = $this->service->PermissionModuleList();
+        return view('role.create', compact('data'));
+    }
+
+  
+    public function store(RoleRequest $request)
+    {
+        if($request->ajax()){
+            $result = $this->service->store($request);
+            if($result){
+                return $this->response_json($status='success',$message='Data Has Been Saved Successfully',$data=null,$response_code=200);
+            }else{
+                return $this->response_json($status='error',$message='Data Cannot Save',$data=null,$response_code=204);
+            }
+        }else{
+           return $this->response_json($status='error',$message=null,$data=null,$response_code=401);
+        }
+    }
+
+    public function edit(Request $request)
+    {
+        if($request->ajax()){
+            $data = $this->service->edit($request);
+            if($data->count()){
+                return $this->response_json($status='success',$message=null,$data=$data,$response_code=201);
+            }else{
+                return $this->response_json($status='error',$message='No Data Found',$data=null,$response_code=204);
+            }
+        }else{
+           return $this->response_json($status='error',$message=null,$data=null,$response_code=401);
+        }
+    }
+
+    public function update(RoleRequest $request)
+    {
+        if($request->ajax()){
+            $result = $this->service->update($request);
+            if($result){
+                return $this->response_json($status='success',$message='Data Has Been Updated Successfully',$data=null,$response_code=200);
+            }else{
+                return $this->response_json($status='error',$message='Data Cannot Update',$data=null,$response_code=204);
+            }
+        }else{
+           return $this->response_json($status='error',$message=null,$data=null,$response_code=401);
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        if($request->ajax()){
+            $Result = $this->service->delete($request);
+            if($Result){
+                return $this->response_json('success','Data has been deleted successfully',null,200);
+            }else{
+                return $this->response_json('error','Data cannot be deleted',null,204);
+            }
+        }else{
+            return $this->response_json('error',null,null,401);
+        }
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        if($request->ajax()){
+            $Result = $this->service->bulkDelete($request);
+            if($Result){
+                return $this->response_json('success','Data has been deleted successfully',null,200);
+            }else{
+                return $this->response_json('error','Data cannot be deleted',null,204);
+            }
+        }else{
+            return $this->response_json('error',null,null,401);
+        }
+    }
 }
