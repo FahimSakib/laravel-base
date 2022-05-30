@@ -27,8 +27,8 @@
                                 <h2 class="dt-entry__title"><i class="{{ $page_icon }}"></i> {{ $sub_title }}</h2>
                             </div>
                             <!-- /entry heading -->
-                            <button class="btn btn-primary btn-sm" onclick="showFormModal('Add New Menu','Save')"><i
-                                    class="fas fa-plus-square"></i> Add New</button>
+                            <a class="btn btn-danger btn-sm" href="{{ route('role') }}"><i
+                                    class="fas fa-arrow-circle-left"></i> Back</a>
                         </div>
                         <!-- /entry header -->
 
