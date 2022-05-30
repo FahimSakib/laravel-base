@@ -61,6 +61,14 @@ class RoleController extends BaseController
         return view('role.edit',compact('data','permission_data'));
     }
 
+    public function show(int $id)
+    {
+        $this->setPageData('Role Details','Role Details','fas fa-th-list');
+        $data = $this->service->PermissionModuleList();
+        $permission_data = $this->service->edit($id);
+        return view('role.view',compact('data','permission_data'));
+    }
+
     public function delete(Request $request)
     {
         if($request->ajax()){
