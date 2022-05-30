@@ -72,14 +72,16 @@ class RoleController extends BaseController
     public function delete(Request $request)
     {
         if($request->ajax()){
-            $Result = $this->service->delete($request);
-            if($Result){
-                return $this->response_json('success','Data has been deleted successfully',null,200);
+            $result = $this->service->delete($request);
+            if($result == 1){
+                return $this->response_json($status='success',$message='Data Has Been Deleted Successfully',$data=null,$response_code=200);
+            }elseif($result == 2){
+                return $this->response_json($status='error',$message='Data Cannot Delete Because it\'s related with many users',$data=null,$response_code=204);
             }else{
-                return $this->response_json('error','Data cannot be deleted',null,204);
+                return $this->response_json($status='error',$message='Data Cannot Delete',$data=null,$response_code=204);
             }
         }else{
-            return $this->response_json('error',null,null,401);
+           return $this->response_json($status='error',$message=null,$data=null,$response_code=401);
         }
     }
 

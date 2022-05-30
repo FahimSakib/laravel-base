@@ -116,8 +116,24 @@ class RoleService extends BaseService{
         return $data;
     }
 
-    public function delete(Request $request){
-        return $this->role->delete($request->id);
+    public function delete(Request $request)
+    {
+        $role = $this->role->findDataWithModulePermission($request->id);
+
+        if(!$role->users->isEmpty()){
+            $response = 2;
+        }else{
+            $delete_module_role = $role->module_role()->detach();
+            $delete_permission_role = $role->permission_role()->detach();
+            if($delete_module_role && $delete_permission_role){
+                $role->delete();
+                $response = 1;
+            }else{
+                $response = 3;
+            }
+        }
+
+        return $response;
     }
 
     public function bulkDelete(Request $request){
