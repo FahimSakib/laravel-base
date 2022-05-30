@@ -110,11 +110,20 @@
 
     </div>
 
-@include('menu.modal')
 @endsection
 
 @push('scripts')
+<script src="js/tree.js"></script>
 <script>
+$(document).ready(function () {
+    $('input[type=checkbox]').click(function () {
+        $(this).next().find('input[type=checkbox]').prop('checked', this.checked);
+        $(this).parents('ul').prev('input[type=checkbox]').prop('checked', function () {
+            return $(this).next().find(':checked').length;
+        });
+    });
 
+    $('#permission').treed(); //intialized tree js
+});
 </script>
 @endpush
