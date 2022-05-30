@@ -39,10 +39,10 @@ class RoleController extends BaseController
     }
 
   
-    public function store(RoleRequest $request)
+    public function storeOrUpdate(RoleRequest $request)
     {
         if($request->ajax()){
-            $result = $this->service->store($request);
+            $result = $this->service->storeOrUpdateData($request);
             if($result){
                 return $this->response_json($status='success',$message='Data Has Been Saved Successfully',$data=null,$response_code=200);
             }else{
@@ -61,20 +61,6 @@ class RoleController extends BaseController
                 return $this->response_json($status='success',$message=null,$data=$data,$response_code=201);
             }else{
                 return $this->response_json($status='error',$message='No Data Found',$data=null,$response_code=204);
-            }
-        }else{
-           return $this->response_json($status='error',$message=null,$data=null,$response_code=401);
-        }
-    }
-
-    public function update(RoleRequest $request)
-    {
-        if($request->ajax()){
-            $result = $this->service->update($request);
-            if($result){
-                return $this->response_json($status='success',$message='Data Has Been Updated Successfully',$data=null,$response_code=200);
-            }else{
-                return $this->response_json($status='error',$message='Data Cannot Update',$data=null,$response_code=204);
             }
         }else{
            return $this->response_json($status='error',$message=null,$data=null,$response_code=401);

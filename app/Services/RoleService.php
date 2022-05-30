@@ -74,18 +74,16 @@ class RoleService extends BaseService{
         }
     }
 
-    public function storeOrUpdateData(Request $request){
+    public function storeOrUpdateData(Request $request)
+    {
         $collection = collect($request->validated());
-
-        $created_at = $updated_at  = Carbon::now();
-
-        if($request->update_id){
-            $collection = $collection->merge(compact('updated_at'));
-        }else{
-            $collection = $collection->merge(compact('created_at'));
+        $role = $this->role->updateOrCreate(['id'=>$request->update_id],$collection->all());
+        if($role){
+            $role->module_role()->sync($request->module);
+            $role->permission_role()->sync($request->permission);
+            return true;
         }
-
-        return $this->role->updateOrCreate(['id' => $request->update_id], $collection->all());
+        return false;
     }
 
     public function edit(Request $request){

@@ -3,9 +3,19 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 class RoleRequest extends FormRequest
 {
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                'status'=>false,
+                'errors'=> $validator->errors()
+            ],200)
+        );
+    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +23,7 @@ class RoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +33,11 @@ class RoleRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        if(request()->update_id){
+            $rules['role_name'] = ['required','string','unique:roles,role_name,'.request()->update_id];
+        }else{
+            $rules['role_name'] = ['required','string','unique:roles,role_name'];
+        }
+        return $rules;
     }
 }

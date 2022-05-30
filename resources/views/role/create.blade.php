@@ -124,6 +124,50 @@ $(document).ready(function () {
     });
 
     $('#permission').treed(); //intialized tree js
+
+    $(document).on('click', '#save-btn', function () {
+        let form = document.getElementById('saveDataForm');
+        let formData = new FormData(form);
+        if ($('.module:checked').length >= 1) {
+            $.ajax({
+                url: "{{route('role.store.or.update')}}",
+                type: "POST",
+                data: formData,
+                dataType: "JSON",
+                contentType: false,
+                processData: false,
+                cache: false,
+                beforeSend: function () {
+                    $('#save-btn').addClass('kt-spinner kt-spinner--md kt-spinner--light');
+                },
+                complete: function () {
+                    $('#save-btn').removeClass('kt-spinner kt-spinner--md kt-spinner--light');
+                },
+                success: function (data) {
+                    $('#saveDataForm').find('.is-invalid').removeClass('is-invalid');
+                    $('#saveDataForm').find('.error').remove();
+                    if (data.status == false) {
+                        $.each(data.errors, function (key, value) {
+                            $('#saveDataForm input#' + key).addClass('is-invalid');
+                            $('#saveDataForm #' + key).parent().append(
+                                '<small class="error text-danger">' + value + '</small>');
+                        });
+                    } else {
+                        notification(data.status, data.message);
+                        if (data.status == 'success') {
+                            window.location.replace("{{ route('role') }}");
+                        }
+                    }
+                },
+                error: function (xhr, ajaxOption, thrownError) {
+                    console.log(thrownError + '\r\n' + xhr.statusText + '\r\n' + xhr.responseText);
+                }
+            });
+        } else {
+            notification('error', 'Please check at least one menu');
+        }
+
+    });
 });
 </script>
 @endpush
