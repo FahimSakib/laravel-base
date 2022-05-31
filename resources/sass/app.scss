@@ -187,3 +187,109 @@ div.dt-button-collection.dropdown-menu{
 .bootstrap-select{
     width: 100% !important;
 }
+
+/********************
+Begin :: Permission Tree
+*********************/
+#permission.tree, #permission.tree ul {
+    margin:0 !important;
+    padding:0 !important;
+    list-style:none !important;
+}
+#permission.tree ul {
+    margin-left:0.5em !important;
+    position:relative;
+}
+#permission.tree ul ul {
+    margin-left:.5em;
+}
+#permission.tree ul:before {
+    content:"";
+    display:block;
+    width:0;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    border-left:1px solid;
+}
+#permission.tree li {
+    margin:0 0 10px 0;
+    padding: 1rem 0 1rem 1em;
+    line-height:2em;
+    font-weight:700;
+    position:relative;
+    border-left: 2px solid #038fde;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+#permission.tree li:hover{
+    box-shadow: none !important;
+}
+#permission.tree li li{
+    margin:0;
+    padding: 0 0 0 1em;
+    line-height:2em;
+    font-weight:700;
+    position:relative;
+    border-left: 0;
+    box-shadow: none !important;
+}
+#permission.tree ul li:before {
+    content:"";
+    display:block;
+    width:10px;
+    height:0;
+    border-top:1px solid;
+    margin-top:-1px;
+    position:absolute;
+    top:1em;
+    left:0
+}
+#permission.tree ul li:last-child:before {
+    background:#fff;
+    height:auto;
+    top:1em;
+    bottom:0
+}
+.indicator {
+    margin-right:5px;
+}
+
+#permission.tree li button, 
+#permission.tree li button:active, 
+#permission.tree li button:focus {
+    text-decoration: none;
+    border:none;
+    background:transparent;
+    margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+    outline: 0;
+}
+
+#permission.tree li .indicator{
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    color: #038fde;
+    font-size: 18px;
+    float: right;
+    line-height: 30px;
+    cursor: pointer;
+}
+#permission.tree li li .indicator{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    color: #038fde;
+    font-size: 18px;
+    float: right;
+    line-height: 30px;
+    cursor: pointer;
+}
+#permission.tree li input[type="checkbox"]{
+    margin-right: 10px;
+}
+
+/********************
+End :: Permission Tree
+*********************/

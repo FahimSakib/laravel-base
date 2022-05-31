@@ -49,4 +49,15 @@ Route::group(['middleware' => ['auth']], function(){
         });
     });
 
+    Route::get('role', 'RoleController@index')->name('role');
+    Route::group(['prefix' => 'role', 'as'=>'role.'], function () {
+        Route::get('create', 'RoleController@create')->name('create');
+        Route::post('datatable-data', 'RoleController@getDatatableData')->name('datatable.data');
+        Route::post('store-or-update', 'RoleController@storeOrUpdate')->name('store.or.update');
+        Route::get('edit/{id}', 'RoleController@edit')->name('edit');
+        Route::get('view/{id}', 'RoleController@show')->name('view');
+        Route::post('delete', 'RoleController@delete')->name('delete');
+        Route::post('bulk-delete', 'RoleController@bulkDelete')->name('bulk.delete');
+    });
+
 });
