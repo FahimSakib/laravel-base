@@ -83,17 +83,18 @@ class UserService extends BaseService{
     }
 
     public function storeOrUpdateData(Request $request){
-        $collection = collect($request->validated());
-
-        $created_at = $updated_at  = Carbon::now();
-
+        $collection = collect($request->validated())->except(['password','password_confirmation']);
+        $created_at = $updated_at = Carbon::now();
+        $created_by = $modified_by = auth()->user()->name;
         if($request->update_id){
-            $collection = $collection->merge(compact('updated_at'));
+            $collection = $collection->merge(compact('modified_by','updated_at'));
         }else{
-            $collection = $collection->merge(compact('created_at'));
+            $collection = $collection->merge(compact('created_by','created_at'));
         }
-
-        return $this->user->updateOrCreate(['id' => $request->update_id], $collection->all());
+        if($request->password){
+            $collection = $collection->merge(with(['password' => $request->password ]));
+        }
+        return $this->user->updateOrCreate(['id'=>$request->update_id],$collection->all());
     }
 
     public function edit(Request $request){
