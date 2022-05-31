@@ -64,6 +64,14 @@ class UserController extends BaseController
         }
     }
 
+    public function show(Request $request)
+    {
+        if($request->ajax()){
+            $user = $this->service->edit($request);
+            return view('user.details',compact('user'))->render();
+        }
+    }
+
     public function delete(Request $request)
     {
         if($request->ajax()){

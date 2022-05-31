@@ -66,12 +66,12 @@ class UserService extends BaseService{
                 <label class="custom-control-label" for="checkbox'.$value->id.'"></label>
               </div>';
               $row[] = $no;
-              $row[] = $value->avatar;
+              $row[] = $this->avatar($value);
               $row[] = $value->name;
               $row[] = $value->role->role_name;
               $row[] = $value->email;
               $row[] = $value->mobile_no;
-              $row[] = $value->gender;
+              $row[] = GENDER[$value->gender];
               $row[] = $value->status == 1 ? '<span class="badge badge-success change_status" data-id="' . $value->id . '" data-name="' . $value->name . '" data-status="2" style="cursor:pointer;">Active</span>' : 
               '<span class="badge badge-danger change_status" data-id="' . $value->id . '" data-name="' . $value->name . '" data-status="1" style="cursor:pointer;">Inactive</span>';
                 $row [] = $btngroup;
@@ -81,6 +81,15 @@ class UserService extends BaseService{
             return $this->databtableDraw($request->input('draw'), $this->user->count_all(), $this->user->count_filtered(), $data);
         }
     }
+
+    protected function avatar($user){
+        if($user->avatar){
+            return "<img src='storage/".USER_AVATAR_PATH.$user->avatar."' style='width:50px;'/>";
+        }else{
+            return "<img src='images/".($user->gender == 1 ? 'male' : 'female').".svg' style='width:50px;'/>";
+        }
+    }
+
 
     public function storeOrUpdateData(Request $request){
         $collection = collect($request->validated())->except(['password','password_confirmation']);

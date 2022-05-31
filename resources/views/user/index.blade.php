@@ -104,6 +104,7 @@
 
     </div>
     @include('user.modal')
+    @include('user.view-modal')
     @endsection
 
     @push('scripts')
@@ -132,12 +133,12 @@
                     "url": "{{route('user.datatable.data')}}",
                     "type": "POST",
                     "data": function (data) {
-                        data.name      = $("#form-filter #name").val();
-                        data.email     = $("#form-filter #email").val();
+                        data.name = $("#form-filter #name").val();
+                        data.email = $("#form-filter #email").val();
                         data.mobile_no = $("#form-filter #mobile_no").val();
-                        data.role_id   = $("#form-filter #role_id").val();
-                        data.status    = $("#form-filter #status").val();
-                        data._token    = _token;
+                        data.role_id = $("#form-filter #role_id").val();
+                        data.status = $("#form-filter #status").val();
+                        data._token = _token;
                     }
                 },
                 "columnDefs": [{
@@ -322,8 +323,10 @@
                             $('#store_or_update_form #mobile_no').val(data.data.mobile_no);
                             $('#store_or_update_form #gender').val(data.data.gender);
                             $('#store_or_update_form #role_id').val(data.data.role_id);
-                            $('#store_or_update_form .selectpicker').selectpicker('refresh');
-                            $('#password, #password_confirmation').parents('.form-group').removeClass('required');
+                            $('#store_or_update_form .selectpicker').selectpicker(
+                            'refresh');
+                            $('#password, #password_confirmation').parents('.form-group')
+                                .removeClass('required');
                             $('#store_or_update_modal').modal({
                                 keyboard: false,
                                 backdrop: 'static',
@@ -332,6 +335,34 @@
                                 '<i class="fas fa-edit"></i> <span>Edit ' + data.data
                                 .name + '</span>');
                             $('#store_or_update_modal #save-btn').text('Update');
+                        },
+                        error: function (xhr, ajaxOption, thrownError) {
+                            console.log(thrownError + '\r\n' + xhr.statusText + '\r\n' + xhr
+                                .responseText);
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '.view_data', function () {
+                let id = $(this).data('id');
+                if (id) {
+                    $.ajax({
+                        url: "{{route('user.show')}}",
+                        type: "POST",
+                        data: {
+                            id: id,
+                            _token: _token
+                        },
+                        success: function (data) {
+                            $('#view_modal .user-details').html();
+                            $('#view_modal .user-details').html(data);
+                            $('#view_modal').modal({
+                                keyboard: false,
+                                backdrop: 'static',
+                            });
+                            $('#view_modal .modal-title').html(
+                                '<i class="fas fa-user"></i> <span>User Details</span>');
                         },
                         error: function (xhr, ajaxOption, thrownError) {
                             console.log(thrownError + '\r\n' + xhr.statusText + '\r\n' + xhr
@@ -382,27 +413,27 @@
         });
 
         function showUserFormModal(modal_title, btn_text) {
-                $('#store_or_update_form')[0].reset();
-                $('#store_or_update_form #update_id').val('');
-                $('#store_or_update_form').find('.is-invalid').removeClass('is-invalid');
-                $('#store_or_update_form').find('.error').remove();
-                $('#store_or_update_form .selectpicker').selectpicker('refresh');
-                $('#password, #password_confirmation').parents('.form-group').addClass('required');
-                $('#store_or_update_modal').modal({
-                    keyboard: false,
-                    backdrop: 'static',
-                });
-                $('#store_or_update_modal .modal-title').html('<i class="fas fa-user-plus"></i> <span> ' +
-                    modal_title);
-                $('#store_or_update_modal #save-btn').text(btn_text);
-            }
+            $('#store_or_update_form')[0].reset();
+            $('#store_or_update_form #update_id').val('');
+            $('#store_or_update_form').find('.is-invalid').removeClass('is-invalid');
+            $('#store_or_update_form').find('.error').remove();
+            $('#store_or_update_form .selectpicker').selectpicker('refresh');
+            $('#password, #password_confirmation').parents('.form-group').addClass('required');
+            $('#store_or_update_modal').modal({
+                keyboard: false,
+                backdrop: 'static',
+            });
+            $('#store_or_update_modal .modal-title').html('<i class="fas fa-user-plus"></i> <span> ' +
+                modal_title);
+            $('#store_or_update_modal #save-btn').text(btn_text);
+        }
 
         /**********************
          * Gebarate Random Password
          *********************/
         const randomFunc = {
-            upper : getRandomUpperCase,
-            lower : getRandomLowerCase,
+            upper: getRandomUpperCase,
+            lower: getRandomLowerCase,
             number: getRandomNumber,
             symbol: getRandomSymbol,
         };
@@ -425,9 +456,9 @@
         }
         //generate event
         document.getElementById('generate_password').addEventListener('click', () => {
-            const length    = 10;    //password length
-            const hasUpper  = true;
-            const hasLower  = true;
+            const length = 10; //password length
+            const hasUpper = true;
+            const hasLower = true;
             const hasSymbol = true;
             const hasNumber = true;
             let password = generatePassword(hasUpper, hasLower, hasNumber, hasSymbol, length);
