@@ -121,7 +121,7 @@
                     [5, 10, 15, 25, 50, 100, 1000, 10000, -1],
                     [5, 10, 15, 25, 50, 100, 1000, 10000, "All"]
                 ],
-                "pageLength": 5, //number of data show per page
+                "pageLength": 25, //number of data show per page
                 "language": {
                     processing: `<i class="fas fa-spinner fa-spin fs-3x fa-fw text-primary"></i>`,
                     emptyTable: '<strong class="text-danger">No Data Found</strong>',
@@ -308,7 +308,7 @@
                 $('#store_or_update_form').find('.error').remove();
                 if (id) {
                     $.ajax({
-                        url: "{{route('menu.edit')}}",
+                        url: "{{route('user.edit')}}",
                         type: "POST",
                         data: {
                             id: id,
@@ -317,16 +317,20 @@
                         dataType: "JSON",
                         success: function (data) {
                             $('#store_or_update_form #update_id').val(data.data.id);
-                            $('#store_or_update_form #menu_name').val(data.data.menu_name);
-                            $('#store_or_update_form #deletable').val(data.data.deletable)
-                                .trigger('change');
+                            $('#store_or_update_form #name').val(data.data.name);
+                            $('#store_or_update_form #email').val(data.data.email);
+                            $('#store_or_update_form #mobile_no').val(data.data.mobile_no);
+                            $('#store_or_update_form #gender').val(data.data.gender);
+                            $('#store_or_update_form #role_id').val(data.data.role_id);
+                            $('#store_or_update_form .selectpicker').selectpicker('refresh');
+                            $('#password, #password_confirmation').parents('.form-group').removeClass('required');
                             $('#store_or_update_modal').modal({
                                 keyboard: false,
                                 backdrop: 'static',
                             });
                             $('#store_or_update_modal .modal-title').html(
                                 '<i class="fas fa-edit"></i> <span>Edit ' + data.data
-                                .menu_name + '</span>');
+                                .name + '</span>');
                             $('#store_or_update_modal #save-btn').text('Update');
                         },
                         error: function (xhr, ajaxOption, thrownError) {

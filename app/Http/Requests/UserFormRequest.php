@@ -38,7 +38,7 @@ class UserFormRequest extends FormRequest
     {
         $this->rules['name'] = ['required','string'];
         $this->rules['email'] = ['required','string','email','unique:users,email'];
-        $this->rules['mobile_no'] = ['required','string','max:15','unique:users,mobile_no'];
+        $this->rules['mobile_no'] = ['required','string','max:15','min:11','unique:users,mobile_no'];
         $this->rules['gender'] = ['required','integer'];
         $this->rules['role_id'] = ['required','integer'];
         $this->rules['password'] = ['required','string','min:8','confirmed'];
@@ -46,7 +46,7 @@ class UserFormRequest extends FormRequest
         if(request()->update_id)
         {
             $this->rules['email'][3] = 'unique:users,email,'.request()->update_id;
-            $this->rules['mobile_no'][3] = 'unique:users,mobile_no,'.request()->update_id;   
+            $this->rules['mobile_no'][4] = 'unique:users,mobile_no,'.request()->update_id;   
             $this->rules['password'][0] = 'nullable';
             $this->rules['password_confirmation'][0] = 'nullable';
         }
