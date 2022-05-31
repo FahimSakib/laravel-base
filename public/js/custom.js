@@ -104,7 +104,7 @@ function store_or_update_data(table, method, url, formData) {
 
 function delete_data(id, url, table, row, name) {
     Swal.fire({
-        title: 'Are you sure to delete ' + name + ' data?',
+        title: 'Are you sure to delete ' + name + '\'s data?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,

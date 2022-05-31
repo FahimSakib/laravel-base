@@ -345,7 +345,7 @@
                 let id = $(this).data('id');
                 let name = $(this).data('name');
                 let row = table.row($(this).parent('tr'));
-                let url = "{{ route('menu.delete') }}";
+                let url = "{{ route('user.delete') }}";
                 delete_data(id, url, table, row, name);
             });
 
@@ -364,7 +364,7 @@
                         icon: 'warning',
                     });
                 } else {
-                    let url = "{{route('menu.bulk.delete')}}";
+                    let url = "{{route('user.bulk.delete')}}";
                     bulk_delete(ids, url, table, rows);
                 }
             }
