@@ -20,6 +20,10 @@ class RoleService extends BaseService{
 
     }
 
+    public function index(){
+        return $this->role->all();
+    }
+
     public function getDatatableData(Request $request)
     {
         if ($request->ajax()) {
