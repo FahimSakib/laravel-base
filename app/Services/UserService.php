@@ -66,12 +66,12 @@ class UserService extends BaseService{
                 <label class="custom-control-label" for="checkbox'.$value->id.'"></label>
               </div>';
               $row[] = $no;
-              $row[] = $this->avatar($value);
+              $row[] = $value->avatar;
               $row[] = $value->name;
               $row[] = $value->role->role_name;
               $row[] = $value->email;
               $row[] = $value->mobile_no;
-              $row[] = GENDER[$value->gender];
+              $row[] = $value->gender;
               $row[] = $value->status == 1 ? '<span class="badge badge-success change_status" data-id="' . $value->id . '" data-name="' . $value->name . '" data-status="2" style="cursor:pointer;">Active</span>' : 
               '<span class="badge badge-danger change_status" data-id="' . $value->id . '" data-name="' . $value->name . '" data-status="1" style="cursor:pointer;">Inactive</span>';
                 $row [] = $btngroup;
