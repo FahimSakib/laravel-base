@@ -62,7 +62,7 @@
             <!-- /header menu -->
 
             <!-- Header Menu -->
-            <ul class="dt-nav d-lg-none">
+            <ul class="dt-nav">
                 <li class="dt-nav__item dt-notification dropdown">
 
                     <!-- Dropdown Link -->
@@ -397,7 +397,7 @@
             <!-- /header menu -->
 
             <!-- Header Menu -->
-            <ul class="dt-nav d-lg-none">
+            <ul class="dt-nav">
                 <li class="dt-nav__item dropdown">
 
                     <!-- Dropdown Link -->
