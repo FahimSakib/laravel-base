@@ -324,7 +324,7 @@
                             $('#store_or_update_form #gender').val(data.data.gender);
                             $('#store_or_update_form #role_id').val(data.data.role_id);
                             $('#store_or_update_form .selectpicker').selectpicker(
-                            'refresh');
+                                'refresh');
                             $('#password, #password_confirmation').parents('.form-group')
                                 .removeClass('required');
                             $('#store_or_update_modal').modal({
@@ -399,6 +399,49 @@
                     bulk_delete(ids, url, table, rows);
                 }
             }
+
+            $(document).on('click', '.change_status', function () {
+                let id = $(this).data('id');
+                let name = $(this).data('name');
+                let status = $(this).data('status');
+                let row = table.row($(this).parent('tr'));
+                let url = "{{ route('user.change.status') }}";
+                Swal.fire({
+                    title: 'Are you sure to change ' + name + '\'s status?',
+                    text: "You can change the status anytime by clicking on status field!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes!'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: {
+                                id: id,
+                                status: status,
+                                _token: _token
+                            },
+                            dataType: "JSON",
+                        }).done(function (response) {
+                            if (response.status == "success") {
+                                Swal.fire("Status Changed", response.message, "success").then(
+                                    function () {
+                                        table.ajax.reload(null, false);
+                                    });
+                            }
+                            if (response.status == "error") {
+                                Swal.fire('Oops...', response.message, "error");
+                            }
+                        }).fail(function () {
+                            Swal.fire('Oops...', "Somthing went wrong with ajax!",
+                                "error");
+                        });
+                    }
+                });
+            });
 
             $('.toggle-password').click(function () {
                 $(this).toggleClass('fa-eye fa-eye-slash');

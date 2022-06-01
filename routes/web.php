@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('show', 'UserController@show')->name('show');
         Route::post('delete', 'UserController@delete')->name('delete');
         Route::post('bulk-delete', 'UserController@bulkDelete')->name('bulk.delete');
+        Route::post('change-status', 'UserController@changeStatus')->name('change.status');
     });
 
 });

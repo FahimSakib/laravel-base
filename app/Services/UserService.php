@@ -118,4 +118,8 @@ class UserService extends BaseService{
         return $this->user->destroy($request->ids);
     }
 
+    public function changeStatus(Request $request){
+        return $this->user->find($request->id)->update(['status' =>$request->status]);
+    }
+
 }

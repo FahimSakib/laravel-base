@@ -99,4 +99,18 @@ class UserController extends BaseController
             return $this->response_json('error',null,null,401);
         }
     }
+
+    public function changeStatus(Request $request)
+    {
+        if($request->ajax()){
+            $Result = $this->service->changeStatus($request);
+            if($Result){
+                return $this->response_json('success','Status has been changed successfully',null,200);
+            }else{
+                return $this->response_json('error','Status cannot be changed!',null,204);
+            }
+        }else{
+            return $this->response_json('error',null,null,401);
+        }
+    }
 }
