@@ -403,16 +403,27 @@
                     <!-- Dropdown Link -->
                     <a href="#" class="dt-nav__link dropdown-toggle no-arrow dt-avatar-wrapper" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img class="dt-avatar size-40" src="assets/images/user-avatar/domnic-harris.jpg"
-                            alt="Domnic Harris">
+                        @if (Auth::user()->avatar)
+                        <img class="dt-avatar size-40" src="storage/{{ USER_AVATAR_PATH.Auth::user()->avatar }}"
+                            alt="{{ Auth::user()->name }}">
+                        @else
+                        <img class="dt-avatar size-40"
+                            src="images/{{ Auth::user()->gender == 1 ? 'male' : 'female' }}.svg"
+                            alt="{{ Auth::user()->name }}">
+                        @endif
                     </a>
                     <!-- /dropdown link -->
 
                     <!-- Dropdown Option -->
-                    <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-menu dropdown-menu-right" style="left: 50px;min-width: 200px">
                         <div class="dt-avatar-wrapper flex-nowrap p-6 mt--5 bg-gradient-purple text-white rounded-top">
-                            <img class="dt-avatar" src="assets/images/user-avatar/domnic-harris.jpg"
-                                alt="Domnic Harris">
+                            @if (Auth::user()->avatar)
+                            <img class="dt-avatar" src="storage/{{ USER_AVATAR_PATH.Auth::user()->avatar }}"
+                                alt="{{ Auth::user()->name }}">
+                            @else
+                            <img class="dt-avatar" src="images/{{ Auth::user()->gender == 1 ? 'male' : 'female' }}.svg"
+                                alt="{{ Auth::user()->name }}">
+                            @endif
                             <span class="dt-avatar-info">
                                 <span class="dt-avatar-name">{{ Auth::user()->name }}</span>
                                 <span class="f-12">{{ Auth::user()->role->role_name }}</span>
@@ -422,7 +433,8 @@
                                 class="icon icon-user-o icon-fw mr-2 mr-sm-1"></i>Account
                         </a> <a class="dropdown-item" href="javascript:void(0)">
                             <i class="icon icon-setting icon-fw mr-2 mr-sm-1"></i>Setting </a>
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit()"> <i
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit()"> <i
                                 class="icon icon-edit icon-fw mr-2 mr-sm-1"></i>Logout
                         </a>
                         <form action="{{ route('logout') }}" method="post" id="logout-form" class="d-none">
