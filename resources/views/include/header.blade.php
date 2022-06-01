@@ -414,17 +414,20 @@
                             <img class="dt-avatar" src="assets/images/user-avatar/domnic-harris.jpg"
                                 alt="Domnic Harris">
                             <span class="dt-avatar-info">
-                                <span class="dt-avatar-name">Bob Hyden</span>
-                                <span class="f-12">Administrator</span>
+                                <span class="dt-avatar-name">{{ Auth::user()->name }}</span>
+                                <span class="f-12">{{ Auth::user()->role->role_name }}</span>
                             </span>
                         </div>
                         <a class="dropdown-item" href="javascript:void(0)"> <i
                                 class="icon icon-user-o icon-fw mr-2 mr-sm-1"></i>Account
                         </a> <a class="dropdown-item" href="javascript:void(0)">
                             <i class="icon icon-setting icon-fw mr-2 mr-sm-1"></i>Setting </a>
-                        <a class="dropdown-item" href="page-login.html"> <i
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit()"> <i
                                 class="icon icon-edit icon-fw mr-2 mr-sm-1"></i>Logout
                         </a>
+                        <form action="{{ route('logout') }}" method="post" id="logout-form" class="d-none">
+                            @csrf
+                        </form>
                     </div>
                     <!-- /dropdown option -->
 
