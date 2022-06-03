@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->enum('gender',['1','2'])->comment="1=Male,2=Female";
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('status')->default(true);
+            $table->enum('status',['1','2'])->default('1')->comment="1=Active,2=Inactive";
             $table->string('created_by')->nullable();
             $table->string('modified_by')->nullable();
             $table->rememberToken();
