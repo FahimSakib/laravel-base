@@ -13,8 +13,8 @@ class RoleSeeder extends Seeder
     public function run()
     {
         Role::insert([
-            ['role_name' => 'Super Admin','deletable'=>false],
-            ['role_name' => 'Admin','deletable'=>false]
+            ['role_name' => 'Super Admin','deletable'=>2],
+            ['role_name' => 'Admin','deletable'=>2]
         ]);
     }
 }
