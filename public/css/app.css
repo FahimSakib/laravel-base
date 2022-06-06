@@ -22489,7 +22489,7 @@ div.dt-button-collection.dropdown-menu {
 }
 
 .menu-builder .dd .item_action {
-  z-index: 999999;
+  z-index: 10;
   position: relative;
   top: 9px;
   right: 10px;
