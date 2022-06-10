@@ -21,7 +21,11 @@ class MenuRepository extends BaseRepository{
 
     private function get_datatable_query()
     {
-        $this->column_order = [null,'id','menu_name','deletable',null];
+        if(permission('menu-bulk-delete')){
+            $this->column_order = [null,'id','menu_name','deletable',null];
+        }else{
+            $this->column_order = ['id','menu_name','deletable',null];
+        }
 
         $query = $this->model->toBase();
 
