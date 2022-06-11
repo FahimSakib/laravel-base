@@ -10,7 +10,7 @@
     <!-- Grid -->
     <div class="row">
         <div class="col-xl-12 pb-3">
-            <ol class="breadcrumb bg-white">
+            <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
                 <li class="active breadcrumb-item">{{ $sub_title }}</li>
             </ol>
@@ -23,7 +23,7 @@
 
                 <!-- Entry Heading -->
                 <div class="dt-entry__heading">
-                    <h2 class="dt-page__title mb-0 text-primary"><i class="{{ $page_icon }}"></i> {{ $sub_title }}</h2>
+                    <h2 class="dt-entry__title mb-0 text-primary"><i class="{{ $page_icon }}"></i> {{ $sub_title }}</h2>
                 </div>
                 <!-- /entry heading -->
 
