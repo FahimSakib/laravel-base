@@ -1,4 +1,5 @@
 <?php 
+define('LOGO_PATH','logo/');
 define('USER_AVATAR_PATH','user/');
 define('DATE_FORMAT',date('d M, Y',));
 define('GENDER',['1'=>'Male','2'=>'Female']);

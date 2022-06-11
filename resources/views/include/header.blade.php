@@ -12,9 +12,12 @@
 
         <!-- Brand logo -->
         <span class="dt-brand__logo">
-            <a class="dt-brand__logo-link" href="index-2.html">
-                <img class="dt-brand__logo-img d-none d-lg-inline-block" src="assets/images/logo.png" alt="Wieldy">
-                <img class="dt-brand__logo-symbol d-lg-none" src="assets/images/logo-symbol.png" alt="Wieldy">
+            <a class="dt-brand__logo-link" href="{{ url('/') }}">
+                <img class="dt-brand__logo-img d-none d-lg-inline-block"
+                    src="{{ 'storage/'.LOGO_PATH.config('settings.logo') }}"
+                    alt="{{ config('settings.title') ? config('settings.title') : env('APP_NAME') }}">
+                <img class="dt-brand__logo-symbol d-lg-none" src="{{ 'storage/'.LOGO_PATH.config('settings.logo') }}"
+                    alt="{{ config('settings.title') ? config('settings.title') : env('APP_NAME') }}">
             </a>
         </span>
         <!-- /brand logo -->
