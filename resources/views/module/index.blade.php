@@ -32,7 +32,11 @@
                             <div>
                                 <a class="btn btn-danger btn-sm" href="{{ route('menu') }}"><i
                                         class="fas fa-arrow-circle-left"></i> Back</a>
-                                <a class="btn btn-primary btn-sm" href="{{ route('menu.module.create', ['menu'=>$data['menu']->id]) }}"><i class="fas fa-plus-square"></i> Add New</a>
+                                @if(permission('menu-builder'))
+                                <a class="btn btn-primary btn-sm"
+                                    href="{{ route('menu.module.create', ['menu'=>$data['menu']->id]) }}"><i
+                                        class="fas fa-plus-square"></i> Add New</a>
+                                @endif
                             </div>
 
                         </div>
@@ -62,45 +66,45 @@
     </div>
     @endsection
 
-@push('scripts')
-<script>
-    $(function () {
-        $('.dd').nestable({
-            maxDepth: 2
-        }); //initialized nestable with max depth 2
-        $('.dd').on('change', function (e) {
-            $.post('{{ route("menu.order",["menu"=>$data["menu"]->id]) }}', {
-                order: JSON.stringify($('.dd').nestable('serialize')),
-                _token: _token
-            }, function (data) {
-                notification('success', 'Menu order updated successfully');
+    @push('scripts')
+    <script>
+        $(function () {
+            $('.dd').nestable({
+                maxDepth: 2
+            }); //initialized nestable with max depth 2
+            $('.dd').on('change', function (e) {
+                $.post('{{ route("menu.order",["menu"=>$data["menu"]->id]) }}', {
+                    order: JSON.stringify($('.dd').nestable('serialize')),
+                    _token: _token
+                }, function (data) {
+                    notification('success', 'Menu order updated successfully');
+                });
             });
         });
-    });
 
-    function deleteItem(id) {
-        Swal.fire({
-            title: 'Are you sure to delete?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                document.getElementById('delete_form_' + id).submit();
-            }
+        function deleteItem(id) {
+            Swal.fire({
+                title: 'Are you sure to delete?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    document.getElementById('delete_form_' + id).submit();
+                }
+            });
+        }
+        $(document).ready(function () {
+            @if(session('success'))
+            notification('success', "{{ session('success') }}");
+            @endif
+            @if(session('error'))
+            notification('error', "{{ session('error') }}");
+            @endif
         });
-    }
-    $(document).ready(function () {
-        @if(session('success'))
-        notification('success', "{{ session('success') }}");
-        @endif
-        @if(session('error'))
-        notification('error', "{{ session('error') }}");
-        @endif
-    });
 
-</script>
-@endpush
+    </script>
+    @endpush

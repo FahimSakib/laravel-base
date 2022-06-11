@@ -27,9 +27,11 @@
                                 <h2 class="dt-entry__title"><i class="{{ $page_icon }}"></i> {{ $sub_title }}</h2>
                             </div>
                             <!-- /entry heading -->
+                            @if (permission('permission-add'))
                             <button class="btn btn-primary btn-sm"
                                 onclick="showFormModal('Add New Permission','Save')"><i class="fas fa-plus-square"></i>
                                 Add New</button>
+                            @endif
                         </div>
                         <!-- /entry header -->
 
@@ -74,6 +76,7 @@
                                 <table id="dataTable" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            @if (permission('permission-bulk-delete'))
                                             <th>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="select_all"
@@ -81,6 +84,7 @@
                                                     <label class="custom-control-label" for="select_all"></label>
                                                 </div>
                                             </th>
+                                            @endif
                                             <th>Sl</th>
                                             <th>Module Name</th>
                                             <th>Permission Name</th>
@@ -140,19 +144,24 @@
                     }
                 },
                 "columnDefs": [{
+                        @if(permission('permission-bulk-delete'))
                         "targets": [0, 5],
-                        "orderable": false,
+                        @else "targets": [4],
+                        @endif "orderable": false,
                         "className": "text-center"
                     },
                     {
+                        @if(permission('permission-bulk-delete'))
                         "targets": [1],
-                        "className": "text-center"
+                        @else "targets": [0],
+                        @endif "className": "text-center"
                     }
                 ],
                 "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'<'float-right'B>>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'<'float-right'p>>>",
-                "buttons": [{
+                "buttons": [
+                    @if(permission('permission-report')) {
                         'extend': 'colvis',
                         'className': 'btn btn-secondary btn-sm text-white',
                         'text': 'Column'
@@ -209,13 +218,15 @@
                             columns: [1, 2, 3]
                         },
                     },
-                    {
+                    @endif
+                    @if(permission('permission-bulk-delete')) {
                         'className': 'btn btn-danger btn-sm delete_btn d-none text-white',
                         'text': 'Delete',
                         action: function (e, dt, node, config) {
                             multi_delete();
                         }
                     }
+                    @endif
                 ],
             });
 

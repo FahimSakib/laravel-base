@@ -23,8 +23,10 @@
                                 <h2 class="dt-entry__title"><i class="{{ $page_icon }}"></i> {{ $sub_title }}</h2>
                             </div>
                             <!-- /entry heading -->
+                            @if(permission('user-add'))
                             <button class="btn btn-primary btn-sm" onclick="showUserFormModal('Add New User','Save')"><i
                                     class="fas fa-plus-square"></i> Add New</button>
+                            @endif
                         </div>
                         <!-- /entry header -->
 
@@ -69,6 +71,7 @@
                                 <table id="dataTable" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            @if(permission('user-bulk-delete'))
                                             <th>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="select_all"
@@ -76,6 +79,7 @@
                                                     <label class="custom-control-label" for="select_all"></label>
                                                 </div>
                                             </th>
+                                            @endif
                                             <th>Sl</th>
                                             <th>Avatar</th>
                                             <th>Name</th>
@@ -142,19 +146,24 @@
                     }
                 },
                 "columnDefs": [{
+                        @if(permission('user-bulk-delete'))
                         "targets": [0, 9],
-                        "orderable": false,
+                        @else "targets": [8],
+                        @endif "orderable": false,
                         "className": "text-center"
                     },
                     {
-                        "targets": [1, 2, 4, 6, 7, 8],
-                        "className": "text-center"
+                        @if(permission('user-bulk-delete'))
+                        "targets": [1, 2, 3, 4, 6, 7, 8],
+                        @else "targets": [0, 1, 2, 3, 6, 7, 8],
+                        @endif "className": "text-center"
                     }
                 ],
                 "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'<'float-right'B>>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'<'float-right'p>>>",
-                "buttons": [{
+                "buttons": [
+                    @if(permission('user-report')) {
                         'extend': 'colvis',
                         'className': 'btn btn-secondary btn-sm text-white',
                         'text': 'Column'
@@ -211,13 +220,15 @@
                             columns: [1, 2, 3]
                         },
                     },
-                    {
+                    @endif
+                    @if(permission('user-bulk-delete')) {
                         'className': 'btn btn-danger btn-sm delete_btn d-none text-white',
                         'text': 'Delete',
                         action: function (e, dt, node, config) {
                             multi_delete();
                         }
                     }
+                    @endif
                 ],
             });
 
@@ -427,10 +438,11 @@
                             dataType: "JSON",
                         }).done(function (response) {
                             if (response.status == "success") {
-                                Swal.fire("Status Changed", response.message, "success").then(
-                                    function () {
-                                        table.ajax.reload(null, false);
-                                    });
+                                Swal.fire("Status Changed", response.message, "success")
+                                    .then(
+                                        function () {
+                                            table.ajax.reload(null, false);
+                                        });
                             }
                             if (response.status == "error") {
                                 Swal.fire('Oops...', response.message, "error");

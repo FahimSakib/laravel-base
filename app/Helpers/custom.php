@@ -7,3 +7,12 @@ define('DELETABLE',['1'=>'No','2'=>'Yes']);
 define('STATUS_LABEL',
 ['1'=>'<span class="badge badge-success">Active</span>',
 '2'=>'<span class="badge badge-danger">Inactive</span>']);
+
+if(!function_exists('permission')){
+    function permission(string $value){
+        if(collect(\Illuminate\Support\Facades\Session::get('permission'))->contains($value)){
+            return true;
+        }
+        return false;
+    }
+}

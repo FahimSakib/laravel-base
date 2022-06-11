@@ -47,8 +47,12 @@ class PermissionService extends BaseService{
             foreach ($list as $value) {
                 $no++;
                 $action = '';
-                $action .= ' <a class="dropdown-item edit_data" data-id="' . $value->id . '"><i class="fas fa-edit text-primary"></i> Edit</a>';
-                $action .= ' <a class="dropdown-item delete_data"  data-id="' . $value->id . '" data-name="' . $value->menu_name . '"><i class="fas fa-trash text-danger"></i> Delete</a>';
+                if (permission('permission-edit')) {
+                    $action .= ' <a class="dropdown-item edit_data" data-id="' . $value->id . '"><i class="fas fa-edit text-primary"></i> Edit</a>';
+                }
+                if (permission('permission-delete')) {
+                    $action .= ' <a class="dropdown-item delete_data"  data-id="' . $value->id . '" data-name="' . $value->menu_name . '"><i class="fas fa-trash text-danger"></i> Delete</a>';
+                }
                 $btngroup = '<div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bars-staggered text-white"></i>
@@ -59,11 +63,13 @@ class PermissionService extends BaseService{
               </div>';
 
                 $row = [];
-                $row[] = '<div class="custom-control custom-checkbox">
-                <input type="checkbox" value="'.$value->id.'"
-                class="custom-control-input select_data" onchange="select_single_item('.$value->id.')" id="checkbox'.$value->id.'">
-                <label class="custom-control-label" for="checkbox'.$value->id.'"></label>
-              </div>';
+                if (permission('permission-bulk-delete')) {
+                    $row[] = '<div class="custom-control custom-checkbox">
+                    <input type="checkbox" value="'.$value->id.'"
+                    class="custom-control-input select_data" onchange="select_single_item('.$value->id.')" id="checkbox'.$value->id.'">
+                    <label class="custom-control-label" for="checkbox'.$value->id.'"></label>
+                    </div>';
+                }
                 $row [] = $no;
                 $row [] = $value->module->module_name;
                 $row [] = $value->name;

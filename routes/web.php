@@ -18,6 +18,7 @@ Auth::routes(['register'=>false]);
 
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/', 'HomeController@index');
+    Route::get('unauthorized', 'HomeController@unauthorized')->name('unauthorized');
 
     //menu routes start:
     Route::get('menu','MenuController@index')->name('menu');

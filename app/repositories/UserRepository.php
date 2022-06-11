@@ -45,7 +45,11 @@ class UserRepository extends BaseRepository{
 
     private function get_datatable_query()
     {
-        $this->column_order = [null,'id','id','name','role_id','email','mobile_no','gender','status',null];
+        if(permission('user-bulk-delete')){
+            $this->column_order = [null,'id','id','name','role_id','email','mobile_no','gender','status',null];
+        }else{
+            $this->column_order = ['id','id','name','role_id','email','mobile_no','gender','status',null]; 
+        }
 
         $query = $this->model->with('role:id,role_name');
 

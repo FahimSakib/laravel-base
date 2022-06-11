@@ -30,4 +30,9 @@ class BaseController extends Controller
         ]);
     }
 
+    protected function unauthorized_access_blocked()
+    {
+        return redirect('unauthorized');
+    }
+
 }
