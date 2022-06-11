@@ -270,12 +270,12 @@
             groupClassName: 'col-md-12 com-sm-12 com-xs-12',
             maxFileSize: '',
             dropFileLabel: 'Drop Here',
-            allowExt: 'png',
+            allowExt: 'png|ico',
             onExtensionErr: function (index, file) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Only png file format allowed!'
+                    text: 'Only png and ico file format allowed!'
                 });
             }
         });
