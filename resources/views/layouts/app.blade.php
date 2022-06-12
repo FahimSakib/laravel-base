@@ -14,10 +14,10 @@
         content="Responsive, HTML5, admin theme, business, professional, jQuery, web design, CSS3, sass">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- /meta tags -->
-    <title>Base | @yield('title')</title>
-
+    <title>{{ config('settings.title') ? config('settings.title') : env('APP_NAME') }} @hasSection('title') |
+        @yield('title') @endif</title>
     <!-- Site favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ 'storage/'.LOGO_PATH.config('settings.favicon') }}" type="image/x-icon">
     <!-- /site favicon -->
 
     <!-- Load Styles -->
@@ -97,7 +97,9 @@
     {{-- <script src="js/custom/charts/dashboard-crypto.js"></script> --}}
     <script>
         var _token = "{{ csrf_token() }}";
+
     </script>
     @stack('scripts')
 </body>
+
 </html>

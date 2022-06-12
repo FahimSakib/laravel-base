@@ -74,4 +74,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('change-status', 'UserController@changeStatus')->name('change.status');
     });
 
+    Route::get('setting','SettingController@index')->name('setting');
+    Route::post('general-setting','SettingController@general_seting')->name('general.setting');
+    Route::post('mail-setting','SettingController@mail_setting')->name('mail.setting');
+
 });
