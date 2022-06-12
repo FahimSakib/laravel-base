@@ -38,14 +38,14 @@ class GeneralSettingFormRequest extends FormRequest
             'title'             => 'required|string',
             'address'           => 'required|string',
             'currency_code'     => 'required|string',
-            'currency_code'     => 'required|string',
+            'currency_symbol'   => 'required|string',
             'currency_position' => 'required|string',
             'timezone'          => 'string',
             'date_formate'      => 'string',
             'invoice_prefix'    => 'required|string',
             'invoice_number'    => 'required|string',
-            'logo'              => 'required|image|mimes:png,jpg,jpeg,svg',
-            'favicon'           => 'required|image|mimes:png',
+            'logo'              => request()->old_logo == null ? 'required|image|mimes:png,jpg,jpeg,svg' : 'nullable|image|mimes:png,jpg,jpeg,svg',
+            'favicon'           => request()->old_favicon == null ? 'required|image|mimes:png,ico' : 'nullable|image|mimes:png,ico',
         ];
     }
 }
