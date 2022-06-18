@@ -1,11 +1,12 @@
 <?php
 namespace App\Services;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\BaseService;
 use App\Repositories\ModuleRepository;
+use Illuminate\Support\Facades\Session;
 use App\Repositories\PermissionRepository;
-use Carbon\Carbon;
 
 class PermissionService extends BaseService{
 
@@ -93,12 +94,26 @@ class PermissionService extends BaseService{
                 'created_at' => Carbon::now()
             ];
         }
-        return $this->permission->insert($permission_data);
+        $result = $this->permission->insert($permission_data);
 
+        if($result){
+            if(auth()->user()->role_id == 1){
+                $this->restoreSessionPermissionList();
+            }
+        }
+        return $result;
     }
 
-    public function edit(Request $request){
-        return $this->permission->find($request->id);
+    public function edit(Request $request)
+    {
+        $result = $this->permission->find($request->id);
+
+        if($result){
+            if(auth()->user()->role_id == 1){
+                $this->restoreSessionPermissionList();
+            }
+        }
+        return $result;
     }
 
     public function update(Request $request)
@@ -106,15 +121,55 @@ class PermissionService extends BaseService{
         $collection = collect($request->validated());
         $updated_at = Carbon::now();
         $collection = $collection->merge(compact('updated_at'));
-        return $this->permission->update($collection->all(),$request->update_id);
+        $result = $this->permission->update($collection->all(),$request->update_id);
+
+        if($result){
+            if(auth()->user()->role_id == 1){
+                $this->restoreSessionPermissionList();
+            }
+        }
+        return $result;
     }
 
-    public function delete(Request $request){
-        return $this->permission->delete($request->id);
+    public function delete(Request $request)
+    {
+        $result = $this->permission->delete($request->id);
+
+        if($result){
+            if(auth()->user()->role_id == 1){
+                $this->restoreSessionPermissionList();
+            }
+        }
+        return $result;
     }
 
-    public function bulkDelete(Request $request){
-        return $this->permission->destroy($request->ids);
+    public function bulkDelete(Request $request)
+    {
+        $result = $this->permission->destroy($request->ids);
+
+        if($result){
+            if(auth()->user()->role_id == 1){
+                $this->restoreSessionPermissionList();
+            }
+        }
+        return $result;
+    }
+
+    public function restoreSessionPermissionList()
+    {
+        $permissions = $this->permission->sessionPermissionList();
+        $permission  = [];
+        
+        if(!$permissions->isEmpty())
+        {
+            foreach ($permissions as $value) {
+                array_push($permission,$value->slug);
+            }
+            Session::forget('permission');
+            Session::put('permission',$permission);
+            return true;
+        }
+        return false;
     }
     
 }

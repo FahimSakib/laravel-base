@@ -6,13 +6,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\MenuRequest;
 use App\Services\MenuService;
+use App\Services\ModuleService;
 
 class MenuController extends BaseController
 {
-    public function __construct(MenuService $menu)
+    protected $module;
+
+    public function __construct(MenuService $menu, ModuleService $module)
     {
         $this->service = $menu;
+        $this->module  = $module;
     }
+
     public function index()
     {
         if(permission('menu-access')){
@@ -111,5 +116,6 @@ class MenuController extends BaseController
     public function orderItem(Request $request){
         $menuItemOrder = json_decode($request->input('order'));
         $this->service->orderMenu($menuItemOrder, null);
+        $this->module->restoreSessionModule();
     }
 }
