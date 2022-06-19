@@ -35,7 +35,8 @@
             <div class="col-md-6 bg-white">
                 <div class="login_box">
                     <a href="#" class="logo_text">
-                        <span>JL</span> Just Log
+                        <img src="{{ 'storage/'.LOGO_PATH.config('settings.logo') }}"
+                            alt="{{ config('settings.title') ? config('settings.title') : env('APP_NAME') }}"><p>&nbsp;</p> {{ config('settings.title') ? config('settings.title') : env('APP_NAME') }}
                     </a>
                     <div class="login_form">
                         <div class="login_form_inner">
@@ -68,8 +69,8 @@
                                 </div>
                                 <div class="checkbox clearfix">
                                     <div class="form-check checkbox-theme">
-                                        <input class="form-check-input" type="checkbox" name="remember"
-                                            id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                            {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="remember">
                                             Remember me
                                         </label>
