@@ -26,4 +26,5 @@ Application setting page
 
 <p align="center">
     <a href="https://github.com/FahimSakib/laravel-base"><img src="https://user-images.githubusercontent.com/54659821/174542224-a27f4f34-af6e-429d-a068-51f106bb855e.png"       alt="View in github" width="100px"></a>
+    <a href="https://github.com/FahimSakib/laravel-base/archive/refs/heads/master.zip"><img src="https://user-images.githubusercontent.com/54659821/174543870-11751879-8574-443d-b4fd-d6df45698664.png"       alt="Download zip" width="100px"></a>
  <p>
