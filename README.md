@@ -1,4 +1,4 @@
-## About Laravel Base
+## Laravel Base
 
 "Laravel Project Base" is a Laravel web application that comprises basic or essential modules for developing new Laravel web applications, such as menu/module builder, role, permission, user, settings, and so on. The goal of this project is to make it easier to construct new web apps with the Laravel framework by eliminating the need to recreate the essential components in each new project. All we have to do now is clone this project and add the necessary modules as needed.
 
